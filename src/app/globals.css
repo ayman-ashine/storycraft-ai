@@ -6,26 +6,24 @@
 
   :root {
     --light: theme(colors.slate.950);
-    --dark: theme(colors.slate.100);
+    --dark: theme(colors.slate.50);
     --surface: theme(colors.slate.200);
-    --primary: theme(colors.purple.300);
+    --primary: theme(colors.blue.300);
     --success: theme(colors.green.300);
     --warning: theme(colors.yellow.300);
     --danger: theme(colors.red.300);
-    --shadow: #00000015;
     --sheen: #00000020;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
       --light: theme(colors.gray.50);
-      --dark: theme(colors.gray.900);
-      --surface: theme(colors.gray.800);
-      --primary: theme(colors.purple.600);
+      --dark: theme(colors.gray.950);
+      --surface: theme(colors.gray.900);
+      --primary: theme(colors.blue.600);
       --success: theme(colors.green.600);
       --warning: theme(colors.yellow.600);
       --danger: theme(colors.red.600);
-      --shadow: #00000015;
       --sheen: #ffffff20;
     }
   }
@@ -33,6 +31,7 @@
   * {
     font-size: 1em;
     font-weight: 400;
+    font-family: var(--font-roboto);
     color: var(--light);
   }
 

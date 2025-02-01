@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Figtree } from "next/font/google";
 import "./globals.css";
 
-const roboto = Roboto({
+const roboto = Figtree({
   variable: "--font-roboto",
-  weight:["400", "500", "900"],
+  weight:["400", "600", "900"],
   subsets: ["latin"],
 });
 
