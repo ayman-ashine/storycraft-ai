@@ -9,8 +9,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        light: "var(--light)",
+        dark: "var(--dark)",
+        surface: "var(--surface)",
+        primary: "var(--primary)",
+        danger: "var(--danger)",
+        warning: "var(--warning)",
+        success: "var(--success)",
+        shadow: "var(--shadow)",
+        sheen: "var(--sheen)",
       },
     },
   },
