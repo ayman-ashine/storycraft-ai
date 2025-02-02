@@ -1,15 +1,23 @@
-import clsx from "clsx"
 import {
     BookOpenText,
     Eye,
     ChevronDown,
     Earth,
-    Film,
     Hourglass,
-    Layers,
-    Users
+    Users,
+    Drama
 } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
+import clsx from "clsx"
+import {
+    AUDIENCE_AGE_GROUPS,
+    GENRES_OPTIONS,
+    LANGUAGES,
+    NARRATIVE_PERSPECTIVES,
+    STORY_LENGTHS,
+    TONE_STYLES
+} from "@/data/const"
+
 
 export default function Options() {
     const [open, setOpen] = useState(false)
@@ -28,34 +36,36 @@ export default function Options() {
             </button>
             {
                 open &&
-                <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 rounded-xl w-full">
+                <div className="gap-4 border-2 border-surface grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-2 rounded-xl w-full">
                     <Select
                         name={"genre"}
-                        icon={<BookOpenText size={20} />}
+                        icon={<Drama size={20} />}
+                        options={GENRES_OPTIONS}
                     />
                     <Select
                         name={"narrative perspective"}
                         icon={<Eye size={20} />}
+                        options={NARRATIVE_PERSPECTIVES}
                     />
                     <Select
-                        name={"structure"}
-                        icon={<Layers size={20} />}
-                    />
-                    <Select
-                        name={"style"}
-                        icon={<Film size={20} />}
+                        name={"tone & style"}
+                        icon={<BookOpenText size={20} />}
+                        options={TONE_STYLES}
                     />
                     <Select
                         name={"audience"}
                         icon={<Users size={20} />}
+                        options={AUDIENCE_AGE_GROUPS}
                     />
                     <Select
                         name={"length"}
                         icon={<Hourglass size={20} />}
+                        options={STORY_LENGTHS}
                     />
                     <Select
                         name={"language"}
                         icon={<Earth size={20} />}
+                        options={LANGUAGES}
                     />
                 </div>
             }
@@ -65,10 +75,12 @@ export default function Options() {
 
 function Select({
     name,
-    icon
+    icon,
+    options
 }: {
     name: string,
-    icon: React.ReactNode
+    icon: React.ReactNode,
+    options: string[]
 }) {
     const [open, setOpen] = useState(false)
     const selectRef = useRef<HTMLButtonElement>(null)
@@ -93,9 +105,13 @@ function Select({
     return (
         <button
             ref={selectRef}
-            className={clsx("relative flex justify-between items-center px-4 py-2 rounded-full w-full", open ? "bg-primary" : "bg-surface")}
+            className={clsx(
+                "relative flex justify-between items-center px-4 py-2 rounded-full w-full",
+                open ? "bg-primary" : "bg-surface"
+            )}
             onClick={() => setOpen(state => !state)}
         >
+            {/* Name & Icons */}
             <div className="flex items-center gap-2">
                 {icon}
                 <span className="font-[600] text-nowrap text-sm capitalize">
@@ -106,21 +122,22 @@ function Select({
             {/* Menu */}
             {
                 open &&
-                <div className="top-full left-0 z-50 absolute flex flex-col bg-surface shadow-md mt-2 rounded-md w-full overflow-hidden">
-                    <div className="hover:bg-sheen px-4 py-2 font-medium text-nowrap text-sm text-start capitalize">
-                        option
-                    </div>
-                    <div className="hover:bg-sheen px-4 py-2 font-medium text-nowrap text-sm text-start capitalize">
-                        option
-                    </div>
-                    <div className="hover:bg-sheen px-4 py-2 font-medium text-nowrap text-sm text-start capitalize">
-                        option
-                    </div>
-                    <div className="hover:bg-sheen px-4 py-2 font-medium text-nowrap text-sm text-start capitalize">
-                        option
-                    </div>
-                    <div className="hover:bg-sheen px-4 py-2 font-medium text-nowrap text-sm text-start capitalize">
-                        option
+                <div
+                    className="top-full left-0 z-50 absolute bg-surface shadow-xl mt-2 rounded-md w-full overflow-hidden"
+                >
+                    <div className="flex flex-col max-h-[300px] overflow-y-auto">
+                        {
+                            options.map(option => {
+                                return (
+                                    <div
+                                        key={option}
+                                        className="hover:bg-sheen px-4 py-2 w-full text-sm text-start capitalize"
+                                    >
+                                        {option}
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
                 </div>
             }

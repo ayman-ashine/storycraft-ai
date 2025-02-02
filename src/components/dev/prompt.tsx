@@ -13,7 +13,7 @@ export default function Prompt() {
     }
 
     return (
-        <div className="flex gap-4 bg-surface shadow-md p-4 rounded-xl w-full h-fit">
+        <div className="flex gap-4 bg-surface shadow-md p-4 rounded-xl w-full">
             <textarea
                 className="bg-transparent placeholder:opacity-50 w-full h-[30px] placeholder:text-light placeholder:capitalize overflow-hidden outline-none resize-none self-center"
                 placeholder="prompt..."
