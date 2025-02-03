@@ -64,14 +64,15 @@ export const AUDIENCE_AGE_GROUPS = [
 ];
 
 export const STORY_LENGTHS = [
-    "short (under 2,000 words)",
-    "medium (2,000 - 7,500 words)",
-    "long (7,500 - 20,000 words)",
-    "very long (over 20,000 words)"
+    "too short (150 - 300 words)",
+    "short (300 - 600 words)",
+    "medium (600 - 900 words)",
+    "long (900 - 1200 words)",
+    "very long (1200 - 1500 words)"
 ];
 
 export const LANGUAGES = [
-    "English (English)",
+    "English",
     "Mandarin Chinese (普通话)",
     "Hindi (हिन्दी)",
     "Spanish (Español)",

@@ -12,7 +12,7 @@
     --success: theme(colors.green.300);
     --warning: theme(colors.yellow.300);
     --danger: theme(colors.red.300);
-    --sheen: #00000015;
+    --sheen: #00ffff30;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -24,7 +24,7 @@
       --success: theme(colors.green.600);
       --warning: theme(colors.yellow.600);
       --danger: theme(colors.red.600);
-      --sheen: #ffffff15;
+      --sheen: #00ffff30;
     }
   }
 

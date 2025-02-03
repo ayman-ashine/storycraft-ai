@@ -1,17 +1,23 @@
 "use client"
 
-import { Prompt } from "./prompt"
-import { Preview } from "./preview"
-import { AdvancedOptions } from "./advancedOptions"
+import Screen from "./screen"
+import Container from "./container"
+// import Header from "./header"
+import Prompt from "./prompt"
+import Options from "./options"
+import StoryGenerator from "./storyGenerator"
+import Preview from "./preview"
 
-export function App() {
+export default function App() {
     return (
-        <div className="bg-dark w-screen h-screen overflow-hidden">
-            <div className="flex flex-col gap-4 p-4 h-full overflow-y-auto">
-                <Preview />
+        <Screen>
+            <Container>
+                {/* <Header/> */}
+                <Preview/>
                 <Prompt />
-                <AdvancedOptions/>
-            </div>
-        </div>
+                <Options />
+                <StoryGenerator/>
+            </Container>
+        </Screen>
     )
 }

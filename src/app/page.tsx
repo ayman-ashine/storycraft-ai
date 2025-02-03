@@ -1,4 +1,4 @@
-import App from "@/components/dev";
-export default function HomePage() {
+import App from "@/components/app";
+export default function LandingPage() {
   return <App />;
 }

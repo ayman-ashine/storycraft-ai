@@ -4,30 +4,15 @@ interface GenerateStoryStore {
     prompt: string
     setPrompt: (prompt: string) => void
 
-    // Advanced Options Properties
-    characters: string
-    setCharacters: (characters: string) => void
-
-    settingAtmosphere: string
-    setSettingAtmosphere: (settingAtmosphere: string) => void
-
-    conflict: string
-    setConflict: (conflict: string) => void
-
-    themes: string
-    setThemes: (themes: string) => void
-
+    // Advanced Options
     genre: string
     setGenre: (genre: string) => void
 
     narrativePerspective: string
     setNarrativePerspective: (narrativePerspective: string) => void
 
-    storyStructure: string
-    setStoryStructure: (storyStructure: string) => void
-
-    toneStyle: string
-    setToneStyle: (toneStyle: string) => void
+    toneAndStyle: string
+    setToneAndStyle: (toneAndStyle: string) => void
 
     storyLength: string
     setStoryLength: (storyLength: string) => void
@@ -38,6 +23,10 @@ interface GenerateStoryStore {
     language: string
     setLanguage: (language: string) => void
 
+    // Generate status
+    isGenerating: boolean
+    setIsGenerating: (isGenerating: boolean) => void
+
     // Reset Function
     reset: () => void
 }
@@ -46,29 +35,14 @@ export const useGenerateStoryStore = create<GenerateStoryStore>((set) => ({
     prompt: "",
     setPrompt: (prompt) => set({ prompt }),
 
-    characters: "",
-    setCharacters: (characters) => set({ characters }),
-
-    settingAtmosphere: "",
-    setSettingAtmosphere: (settingAtmosphere) => set({ settingAtmosphere }),
-
-    conflict: "",
-    setConflict: (conflict) => set({ conflict }),
-
-    themes: "",
-    setThemes: (themes) => set({ themes }),
-
     genre: "",
     setGenre: (genre) => set({ genre }),
 
     narrativePerspective: "",
     setNarrativePerspective: (narrativePerspective) => set({ narrativePerspective }),
 
-    storyStructure: "",
-    setStoryStructure: (storyStructure) => set({ storyStructure }),
-
-    toneStyle: "",
-    setToneStyle: (toneStyle) => set({ toneStyle }),
+    toneAndStyle: "",
+    setToneAndStyle: (toneAndStyle) => set({ toneAndStyle }),
 
     storyLength: "",
     setStoryLength: (storyLength) => set({ storyLength }),
@@ -79,16 +53,14 @@ export const useGenerateStoryStore = create<GenerateStoryStore>((set) => ({
     language: "",
     setLanguage: (language) => set({ language }),
 
+    isGenerating: false,
+    setIsGenerating: (isGenerating) => set({ isGenerating }),
+
     reset: () => set({
         prompt: "",
-        characters: "",
-        settingAtmosphere: "",
-        conflict: "",
-        themes: "",
         genre: "",
         narrativePerspective: "",
-        storyStructure: "",
-        toneStyle: "",
+        toneAndStyle: "",
         storyLength: "",
         audienceAgeGroup: "",
     }),
