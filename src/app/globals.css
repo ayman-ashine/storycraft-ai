@@ -16,7 +16,7 @@
     --sheen: #c4b5fd50;
   }
 
-  @media (prefers-color-scheme: dark-) {
+  @media (prefers-color-scheme: dark) {
     :root {
       --light: theme(colors.gray.50);
       --dark: theme(colors.gray.950);
