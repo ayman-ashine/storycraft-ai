@@ -1,22 +1,15 @@
 "use client"
 
-import Screen from "./screen"
-import Container from "./container"
-// import Header from "./header"
-import Prompt from "./prompt"
-import Options from "./options"
-import StoryGenerator from "./storyGenerator"
-import Preview from "./preview"
+import { Screen, Container } from "@/components/ui"
+import { Header } from "./header"
+import { Section } from "./section"
 
-export default function App() {
+export function App() {
     return (
         <Screen>
             <Container>
-                {/* <Header/> */}
-                <Preview/>
-                <Prompt />
-                <Options />
-                <StoryGenerator/>
+                <Header />
+                <Section />
             </Container>
         </Screen>
     )

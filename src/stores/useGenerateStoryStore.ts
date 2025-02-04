@@ -1,8 +1,8 @@
 import { create } from "zustand"
 
 interface GenerateStoryStore {
-    prompt: string
-    setPrompt: (prompt: string) => void
+    concept: string
+    setConcept: (prompt: string) => void
 
     // Advanced Options
     genre: string
@@ -23,17 +23,13 @@ interface GenerateStoryStore {
     language: string
     setLanguage: (language: string) => void
 
-    // Generate status
-    isGenerating: boolean
-    setIsGenerating: (isGenerating: boolean) => void
-
     // Reset Function
     reset: () => void
 }
 
 export const useGenerateStoryStore = create<GenerateStoryStore>((set) => ({
-    prompt: "",
-    setPrompt: (prompt) => set({ prompt }),
+    concept: "",
+    setConcept: (concept) => set({ concept }),
 
     genre: "",
     setGenre: (genre) => set({ genre }),
@@ -53,15 +49,13 @@ export const useGenerateStoryStore = create<GenerateStoryStore>((set) => ({
     language: "",
     setLanguage: (language) => set({ language }),
 
-    isGenerating: false,
-    setIsGenerating: (isGenerating) => set({ isGenerating }),
-
     reset: () => set({
-        prompt: "",
+        concept: "",
         genre: "",
         narrativePerspective: "",
         toneAndStyle: "",
         storyLength: "",
         audienceAgeGroup: "",
+        language: "",
     }),
 }))

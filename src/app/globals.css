@@ -8,23 +8,25 @@
     --light: theme(colors.slate.950);
     --dark: theme(colors.slate.50);
     --surface: theme(colors.slate.200);
-    --primary: theme(colors.blue.300);
+    --surface-hover: theme(colors.gray.300);
+    --primary: theme(colors.violet.300);
     --success: theme(colors.green.300);
     --warning: theme(colors.yellow.300);
     --danger: theme(colors.red.300);
-    --sheen: #00ffff30;
+    --sheen: #c4b5fd50;
   }
 
-  @media (prefers-color-scheme: dark) {
+  @media (prefers-color-scheme: dark-) {
     :root {
       --light: theme(colors.gray.50);
       --dark: theme(colors.gray.950);
       --surface: theme(colors.gray.900);
-      --primary: theme(colors.blue.600);
+      --surface-hover: theme(colors.gray.800);
+      --primary: theme(colors.violet.600);
       --success: theme(colors.green.600);
       --warning: theme(colors.yellow.600);
       --danger: theme(colors.red.600);
-      --sheen: #00ffff30;
+      --sheen: #7c3aed50;
     }
   }
 
@@ -36,7 +38,7 @@
   }
 
   body {
-    background-color: var(--primary)
+    background-color: var(--primary);
   }
 
   /* Scrollbar width */
@@ -46,7 +48,7 @@
 
   /* Scrollbar Handle */
   ::-webkit-scrollbar-thumb {
-    @apply bg-sheen cursor-default;
+    @apply bg-primary cursor-default;
   }
 
 }
@@ -55,7 +57,8 @@
   .see {
     @apply border-danger border;
   }
-  .shadow {
-    @apply shadow-md shadow-shadow;
+  .orbitron {
+    font-family: var(--font-orbitron);
+    font-weight: 900;
   }
 }
