@@ -25,6 +25,7 @@ import {
     TONE_STYLES
 } from "@/data/options"
 import { Select } from "./select"
+import { generateUniqueId } from "@/utils/generateUniqueId"
 
 export function Prompt() {
 
@@ -71,9 +72,15 @@ function ConceptInput() {
                 audienceAgeGroup,
                 storyLength,
                 language,
-            }).then(story => {
-                if (story) {
-                    setStory(story)
+            }).then(content => {
+                if (content) {
+                    setStory({
+                        id: generateUniqueId(),
+                        content: content,
+                        title: "",
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString()
+                    })
                     setSection(SECTION.EDITOR)
                 }
                 setIsLoading(false)
@@ -102,7 +109,7 @@ function ConceptInput() {
             >
                 <Sparkle />
                 <span>generate</span>
-                {isLoading && <Spinner bgColor="light" spinnerColor="dark"/>}
+                {isLoading && <Spinner bgColor="light" spinnerColor="dark" />}
             </button>
         </div>
     )

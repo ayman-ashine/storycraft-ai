@@ -1,21 +1,18 @@
 import { create } from "zustand"
+import { Story } from "@/data/types"
 
-interface StoryStore {
-
-    title: string
-    setTitle: (title: string) => void
-
-    story: string
-    setStory: (story: string) => void
-
+interface EditorStore {
+    story: Story | null
+    setStory: (story: Story) => void
+    editStory: (updatedStory: Partial<Story>) => void
 }
 
-export const useEditorStore = create<StoryStore>((set) => ({
-
-    title: "",
-    setTitle: (title) => set({ title }),
-
-    story: ".",
+export const useEditorStore = create<EditorStore>((set) => ({
+    story: null,
     setStory: (story) => set(({ story })),
-
-}))
+    editStory: (updatedStory) => set((state) => ({
+        story: state.story
+            ? { ...state.story, ...updatedStory }
+            : state.story,
+    }))
+}));
