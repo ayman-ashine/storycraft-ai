@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from 'motion/react'
 import {
     BookOpenText,
@@ -49,14 +49,15 @@ function ConceptInput() {
         language,
     } = useGenerateStoryStore()
     const { setStory } = useEditorStore()
-    const {setSection} = useSectionStore()
+    const { setSection } = useSectionStore()
     const [isLoading, setIsLoading] = useState(false)
+    const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-    const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        e.target.style.height = "30px"
-        e.target.style.height = `${e.target.scrollHeight}px`
-        setConcept(e.target.value)
-    }
+    useEffect(() => {
+        if (!textareaRef.current) return
+        textareaRef.current.style.height = "30px"
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+    }, [concept])
 
     const handleGenerateStory = async () => {
         if (concept && !isLoading) {
@@ -80,25 +81,26 @@ function ConceptInput() {
     }
 
     return (
-        <div className="flex flex-col gap-2 border-2 border-surfaceHover bg-surface p-4 rounded-2xl w-full">
+        <div className="flex flex-col gap-2 border-surfaceHover bg-surface p-4 border rounded-2xl w-full">
             {/* <p className="w-full text-sm">
                 {"Provide your story idea, main characters, setting (time, place, and atmosphere), conflict (central struggle), and theme (core message or idea)..."}
             </p> */}
             <textarea
+                ref={textareaRef}
                 className="bg-transparent placeholder:opacity-50 w-full h-[30px] placeholder:text-light overflow-hidden outline-none resize-none"
                 placeholder="A lonely robot finds a friend in a kind girl, but they must escape humans who fear robots..."
-                onChange={handleOnChange}
+                onChange={e => setConcept(e.target.value)}
                 value={concept}
                 maxLength={2000}
             >
             </textarea>
             <button
-                className="relative flex items-center gap-2 bg-light hover:opacity-70 disabled:opacity-50 px-4 py-2 rounded-full transition-opacity duration-200 disabled:cursor-default select-none ease-in-out self-end"
+                className="btn btn-reverse self-end"
                 onClick={handleGenerateStory}
                 disabled={concept === ""}
             >
-                <Sparkle size={20} className="stroke-dark" />
-                <span className="font-[600] text-dark text-sm capitalize">generate</span>
+                <Sparkle />
+                <span>generate</span>
                 {isLoading && <Loader />}
             </button>
         </div>
@@ -125,25 +127,23 @@ function AdvancedOptions() {
     return (
         <div className="flex flex-col gap-4">
             <button
-                className="flex items-center gap-2 bg-surface hover:bg-surfaceHover px-4 py-2 rounded-xl w-fit transition-colors duration-200 select-none ease-in-out self-end"
+                className="btn btn-surface self-center"
                 onClick={() => setOpen(state => !state)}
             >
-                <Settings size={20} />
-                <span className="font-[600] text-nowrap text-sm capitalize">
-                    {"advanced options"}
-                </span>
-                <ChevronDown size={20} className={open ? "rotate-180" : ""} />
+                <Settings />
+                <span>{"advanced options"}</span>
+                <ChevronDown className={open ? "rotate-180" : ""} />
             </button>
+            <hr className="border-surface"/>
             <AnimatePresence initial={true}>
                 {
                     open &&
                     <motion.div
-                        className="gap-2 border-2 border-surface grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-2 rounded-xl w-full origin-top"
-                        initial={{ translateY: "-10%", opacity: 0 }}
+                        className="gap-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                        initial={{ translateY: "25%", opacity: 0 }}
                         animate={{ translateY: "0%", opacity: 1 }}
-                        exit={{ translateY: "-10%", opacity: 0 }}
+                        exit={{ translateY: "25%", opacity: 0 }}
                         transition={{ duration: 0.2, ease: "easeInOut" }}
-                        layout
                     >
                         <Select
                             name={"genre"}

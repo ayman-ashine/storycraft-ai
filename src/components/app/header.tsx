@@ -10,15 +10,15 @@ export function Header() {
         <header className="flex sm:flex-row flex-col justify-between items-center gap-4 w-full select-none">
             {/* Logo */}
             <div className="flex items-center gap-2">
-                <LibraryBig size={30} className="stroke-primary"/>
-                <span className="text-2xl text-primary orbitron">
+                <LibraryBig className="size-6 sm:size-8"/>
+                <span className="text-xl sm:text-2xl orbitron">
                     {"StoryCraft AI"}
                 </span>
             </div>
-            <nav className="flex justify-center items-center gap-2 bg-surface p-2 rounded-xl w-fit">
+            <nav className="flex justify-center items-center gap-1 bg-surface p-1 rounded-md w-fit">
                 <button
                     className={clsx(
-                        "flex items-center gap-2 px-4 py-2 rounded-xl transition-colors duration-200 ease-in-out",
+                        "flex items-center gap-2 px-4 py-2 rounded-md transition-colors duration-200 ease-in-out",
                         section === SECTION.PROMPT ? "bg-primary" : "hover:bg-surfaceHover"
                     )}
                     onClick={() => setSection(SECTION.PROMPT)}
@@ -30,7 +30,7 @@ export function Header() {
                 </button>
                 <button
                     className={clsx(
-                        "flex items-center gap-2 px-4 py-2 rounded-xl transition-colors duration-200 ease-in-out",
+                        "flex items-center gap-2 px-4 py-2 rounded-md transition-colors duration-200 ease-in-out",
                         section === SECTION.EDITOR ? "bg-primary" : "hover:bg-surfaceHover"
                     )}
                     onClick={() => setSection(SECTION.EDITOR)}

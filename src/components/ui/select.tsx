@@ -55,7 +55,7 @@ export function Select({
         <button
             ref={selectRef}
             className={clsx(
-                "relative flex justify-between items-center px-4 py-2 rounded-xl w-full transition-colors duration-200 ease-in-out",
+                "relative flex justify-between items-center border-surfaceHover px-4 py-2 border rounded-full w-full transition-colors duration-200 ease-in-out",
                 option ? "bg-primary" : (open ? "bg-surfaceHover" : "bg-surface hover:bg-surfaceHover"),
             )}
             onClick={() => setOpen(state => !state)}
@@ -67,15 +67,15 @@ export function Select({
                     {option || name}
                 </span>
             </div>
-            <ChevronDown size={20} className={clsx("transition-transform duration-200", open && "rotate-180")} />
+            <ChevronDown size={18} className={clsx("transition-transform duration-200", open && "rotate-180")} />
             {/* Menu */}
             <AnimatePresence initial={false}>
                 {
                     open &&
                     <motion.div
                         className={clsx(
-                            "left-0 z-50 absolute bg-surface shadow-md mb-2 rounded-md w-full overflow-hidden",
-                            flip ? "bottom-full mb-1" : "top-full mt-1"
+                            "left-0 z-[1000] absolute bg-surface shadow-md rounded-md w-full overflow-hidden outline outline-1 outline-surfaceHover",
+                            flip ? "bottom-full mb-2" : "top-full mt-2"
                         )}
                         initial={{ maxHeight: 0, opacity: 0 }}
                         animate={{ maxHeight: 300, opacity: 1 }}

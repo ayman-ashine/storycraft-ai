@@ -53,6 +53,26 @@
 
 }
 
+@layer components {
+  .btn {
+    @apply
+    relative px-4 py-2 flex items-center justify-center gap-2 w-fit overflow-hidden
+    disabled:opacity-50 disabled:hover:opacity-50 disabled:cursor-default
+    transition-all duration-200 ease-in-out shadow-md rounded-full cursor-pointer
+    [&_span]:text-light [&_span]:font-[600] [&_span]:text-nowrap [&_span]:text-sm [&_span]:capitalize
+    [&_svg]:size-4 [&_svg]:stroke-light;
+  }
+  .btn-primary {
+    @apply bg-primary hover:opacity-70;
+  }
+  .btn-surface {
+    @apply border-surfaceHover bg-surface hover:bg-surfaceHover border;
+  }
+  .btn-reverse {
+    @apply bg-light hover:opacity-70 [&_span]:text-dark [&_svg]:stroke-dark;
+  }
+}
+
 @layer utilities {
   .see {
     @apply border-danger border;

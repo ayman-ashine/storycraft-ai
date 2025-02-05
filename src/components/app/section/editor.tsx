@@ -1,7 +1,6 @@
 import { useEditorStore } from "@/stores/useEditorStore"
 import { useEffect, useRef, useState } from "react"
 import { Copy, Save, Sparkle } from "lucide-react"
-import Image from "next/image"
 import { generateStoryTitle } from "@/api/ai"
 import { Loader } from "@/components/ui"
 
@@ -67,7 +66,7 @@ function Story() {
     }, [story])
 
     return (
-        <div className="bg-surface p-4 rounded-xl overflow-hidden">
+        <div className="border-surfaceHover bg-surface p-4 border rounded-xl overflow-hidden">
             <textarea
                 ref={textareaRef}
                 className="bg-transparent w-full h-full outline-none resize-none"
@@ -96,15 +95,15 @@ function Controls() {
     return (
         <div className="flex justify-end items-center gap-2 w-full">
             <button
-                className="flex items-center gap-2 bg-light hover:opacity-70 px-4 py-2 rounded-full transition-opacity duration-200 ease-in-out"
+                className="btn btn-surface"
                 onClick={handleCopyStory}
             >
-                <Copy className="stroke-dark" size={20} />
-                <span className="font-[600] text-dark text-nowrap text-sm capitalize">Copy</span>
+                <Copy />
+                <span>copy</span>
             </button>
-            <button className="flex items-center gap-2 bg-light hover:opacity-70 px-4 py-2 rounded-full transition-opacity duration-200 ease-in-out">
+            <button className="btn btn-surface">
                 <Save className="stroke-dark" size={20} />
-                <span className="font-[600] text-dark text-nowrap text-sm capitalize">Save</span>
+                <span>save</span>
             </button>
         </div>
     )
@@ -113,13 +112,17 @@ function Controls() {
 function PlaceHolder() {
     return (
         <div className="flex flex-col flex-1 justify-center items-center gap-2 opacity-50">
-            <Image
-                className="w-[100px] h-[100px] object-cover"
-                src={"/file-notfound.svg"}
-                width={100}
-                height={100}
-                alt="File Not Found"
-            />
+            <svg className="stroke-2 stroke-light" width="100px" height="100px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <polyline points="34.48 54.28 11.06 54.28 11.06 18.61 23.02 5.75 48.67 5.75 48.67 39.42"/>
+                <polyline points="23.04 5.75 23.02 18.61 11.06 18.61"/>
+                <line x1="16.21" y1="45.68" x2="28.22" y2="45.68"/>
+                <line x1="16.21" y1="39.15" x2="31.22" y2="39.15"/>
+                <line x1="16.21" y1="33.05" x2="43.22" y2="33.05"/>
+                <line x1="16.21" y1="26.95" x2="43.22" y2="26.95"/>
+                <circle cx="42.92" cy="48.24" r="10.01" strokeLinecap="round"/>
+                <line x1="39.05" y1="44.36" x2="46.8" y2="52.11"/>
+                <line x1="39.05" y1="52.11" x2="46.8" y2="44.36"/>
+            </svg>
             <h1 className="font-[600] text-xl">
                 {"No story available."}
             </h1>
