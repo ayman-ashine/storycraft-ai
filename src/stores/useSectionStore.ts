@@ -2,7 +2,8 @@ import { create } from "zustand"
 
 export enum SECTION {
     PROMPT,
-    EDITOR
+    EDITOR,
+    ARCHIVE
 }
 
 interface SectionStore {

@@ -16,7 +16,7 @@
     --sheen: #c4b5fd50;
   }
 
-  @media (prefers-color-scheme: dark) {
+  @media (prefers-color-scheme: dark-) {
     :root {
       --light: theme(colors.gray.50);
       --dark: theme(colors.gray.950);
@@ -58,18 +58,34 @@
     @apply
     relative px-4 py-2 flex items-center justify-center gap-2 w-fit overflow-hidden
     disabled:opacity-50 disabled:hover:opacity-50 disabled:cursor-default
-    transition-all duration-200 ease-in-out shadow-md rounded-full cursor-pointer
+    transition-all duration-200 ease-in-out rounded-full cursor-pointer
     [&_span]:text-light [&_span]:font-[600] [&_span]:text-nowrap [&_span]:text-sm [&_span]:capitalize
-    [&_svg]:size-4 [&_svg]:stroke-light;
+    [&_svg]:size-4 [&_svg]:stroke-light active:scale-90 disabled:active:scale-100;
+  }
+  .btn-circle {
+    @apply
+    relative p-2 flex items-center justify-center w-fit overflow-hidden aspect-square
+    disabled:opacity-50 disabled:hover:opacity-50 disabled:cursor-default
+    transition-all duration-200 ease-in-out rounded-full cursor-pointer
+    [&_svg]:size-4 [&_svg]:stroke-light active:scale-90 disabled:active:scale-100;
   }
   .btn-primary {
     @apply bg-primary hover:opacity-70;
   }
   .btn-surface {
-    @apply border-surfaceHover bg-surface hover:bg-surfaceHover border;
+    @apply border-surfaceHover bg-surface hover:bg-surfaceHover disabled:hover:bg-surface border;
   }
   .btn-reverse {
     @apply bg-light hover:opacity-70 [&_span]:text-dark [&_svg]:stroke-dark;
+  }
+  .btn-danger {
+    @apply bg-danger hover:opacity-70;
+  }
+  .btn-warning {
+    @apply bg-warning hover:opacity-70;
+  }
+  .btn-success {
+    @apply bg-success hover:opacity-70;
   }
 }
 

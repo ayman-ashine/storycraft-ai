@@ -74,7 +74,7 @@ export function Select({
                     open &&
                     <motion.div
                         className={clsx(
-                            "left-0 z-[1000] absolute bg-surface shadow-md rounded-md w-full overflow-hidden outline outline-1 outline-surfaceHover",
+                            "left-0 z-50 absolute bg-surface shadow-md rounded-md w-full overflow-hidden outline outline-1 outline-surfaceHover",
                             flip ? "bottom-full mb-2" : "top-full mt-2"
                         )}
                         initial={{ maxHeight: 0, opacity: 0 }}

@@ -1,16 +1,32 @@
+import { AnimatePresence, motion } from 'motion/react';
 import { useSectionStore, SECTION } from "@/stores/useSectionStore"
 import { Prompt } from "./prompt"
 import { Editor } from "./editor"
-import { AnimatePresence, motion } from 'motion/react';
-
+import { Archive } from "./achrive"
 
 export function Section() {
 
     const { section } = useSectionStore()
 
     switch (section) {
-        case SECTION.PROMPT: return <AnimateDisplay key={SECTION.PROMPT}><Prompt /></AnimateDisplay>
-        case SECTION.EDITOR: return <AnimateDisplay key={SECTION.EDITOR}><Editor /></AnimateDisplay>
+        case SECTION.PROMPT:
+            return (
+                <AnimateDisplay key={SECTION.PROMPT}>
+                    <Prompt />
+                </AnimateDisplay>
+            )
+        case SECTION.EDITOR:
+            return (
+                <AnimateDisplay key={SECTION.EDITOR}>
+                    <Editor />
+                </AnimateDisplay>
+            )
+        case SECTION.ARCHIVE:
+            return (
+                <AnimateDisplay key={SECTION.ARCHIVE}>
+                    <Archive/>
+                </AnimateDisplay>
+            )
         default: return null
     }
 

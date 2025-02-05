@@ -1,6 +1,6 @@
 "use client"
 
-import { Screen, Container } from "@/components/ui"
+import { Screen, Container, Toast } from "@/components/ui"
 import { Header } from "./header"
 import { Section } from "./section"
 
@@ -10,6 +10,7 @@ export function App() {
             <Container>
                 <Header />
                 <Section />
+                <Toast/>
             </Container>
         </Screen>
     )

@@ -2,5 +2,5 @@
 
 export { Container } from "./container"
 export { Screen } from "./screen"
-export { Loader } from "./loader"
-export { Select } from "./select"
+export { Spinner } from "./spinner"
+export { Toast } from "./toast"

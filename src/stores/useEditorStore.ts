@@ -15,7 +15,7 @@ export const useEditorStore = create<StoryStore>((set) => ({
     title: "",
     setTitle: (title) => set({ title }),
 
-    story: "",
+    story: ".",
     setStory: (story) => set(({ story })),
 
 }))

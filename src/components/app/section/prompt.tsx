@@ -11,7 +11,7 @@ import {
     Settings,
     Sparkle
 } from "lucide-react"
-import { Loader, Select } from "@/components/ui"
+import { Spinner } from "@/components/ui"
 import { useGenerateStoryStore } from "@/stores/useGenerateStoryStore"
 import { useEditorStore } from "@/stores/useEditorStore"
 import { useSectionStore, SECTION } from "@/stores/useSectionStore"
@@ -23,7 +23,8 @@ import {
     NARRATIVE_PERSPECTIVES,
     STORY_LENGTHS,
     TONE_STYLES
-} from "@/data/const"
+} from "@/data/options"
+import { Select } from "./select"
 
 export function Prompt() {
 
@@ -59,7 +60,7 @@ function ConceptInput() {
         textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }, [concept])
 
-    const handleGenerateStory = async () => {
+    const handleGenerateStory = () => {
         if (concept && !isLoading) {
             setIsLoading(true)
             generateStory({
@@ -101,7 +102,7 @@ function ConceptInput() {
             >
                 <Sparkle />
                 <span>generate</span>
-                {isLoading && <Loader />}
+                {isLoading && <Spinner bgColor="light" spinnerColor="dark"/>}
             </button>
         </div>
     )
@@ -134,7 +135,7 @@ function AdvancedOptions() {
                 <span>{"advanced options"}</span>
                 <ChevronDown className={open ? "rotate-180" : ""} />
             </button>
-            <hr className="border-surface"/>
+            <hr className="border-surface" />
             <AnimatePresence initial={true}>
                 {
                     open &&

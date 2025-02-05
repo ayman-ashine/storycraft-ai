@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Terminal, Newspaper, LibraryBig } from "lucide-react";
+import { Terminal, Newspaper, LibraryBig, Archive } from "lucide-react";
 import { useSectionStore, SECTION } from "@/stores/useSectionStore";
 
 export function Header() {
@@ -38,6 +38,18 @@ export function Header() {
                     <Newspaper size={20} />
                     <span className="font-[600] text-nowrap text-sm capitalize">
                         editor
+                    </span>
+                </button>
+                <button
+                    className={clsx(
+                        "flex items-center gap-2 px-4 py-2 rounded-md transition-colors duration-200 ease-in-out",
+                        section === SECTION.ARCHIVE ? "bg-primary" : "hover:bg-surfaceHover"
+                    )}
+                    onClick={() => setSection(SECTION.ARCHIVE)}
+                >
+                    <Archive size={20} />
+                    <span className="font-[600] text-nowrap text-sm capitalize">
+                        archive
                     </span>
                 </button>
             </nav>
