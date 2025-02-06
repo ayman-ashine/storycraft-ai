@@ -31,7 +31,7 @@
   }
 
   * {
-    font-size: 1em;
+    font-size: 1rem;
     font-weight: 400;
     font-family: var(--font-roboto);
     color: var(--light);
@@ -96,5 +96,10 @@
   .orbitron {
     font-family: var(--font-orbitron);
     font-weight: 900;
+  }
+
+  .pattern-lines {
+    background-image: linear-gradient(var(--dark) 1.1rem, var(--surface) 1.2rem);
+    background-size: 100% 1.2rem;
   }
 }

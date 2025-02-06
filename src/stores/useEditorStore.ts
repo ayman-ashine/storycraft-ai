@@ -8,11 +8,17 @@ interface EditorStore {
 }
 
 export const useEditorStore = create<EditorStore>((set) => ({
-    story: null,
+    story: {
+        id: "",
+        title: "",
+        content: "",
+        createdAt: "",
+        updatedAt: "",
+    },
     setStory: (story) => set(({ story })),
     editStory: (updatedStory) => set((state) => ({
         story: state.story
-            ? { ...state.story, ...updatedStory }
+            ? { ...state.story, ...updatedStory, updatedAt: new Date().toISOString() }
             : state.story,
     }))
 }));

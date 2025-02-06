@@ -5,34 +5,41 @@ import { generateStoryTitle } from "@/api/ai"
 import { Spinner } from "@/components/ui"
 import { useToastStore } from "@/stores/useToastStore"
 import { useStoriesArchiveStore } from "@/stores/useStoriesArchiveStore"
-import { useSectionStore } from "@/stores/useSectionStore"
+import { SECTION, useSectionStore } from "@/stores/useSectionStore"
 
-export function Editor() {
+export function Edit() {
 
     const { story } = useEditorStore()
 
     return story ? (
         <div className="flex flex-col flex-1 justify-center gap-4">
-            <StoryTitle />
-            <Story />
+            <Title />
+            <Content />
             <Controls />
         </div>
     ) : <PlaceHolder />
 }
 
-function StoryTitle() {
+function Title() {
 
     const { story, editStory } = useEditorStore()
     const { setToast } = useToastStore()
     const [isLoading, setIsLoading] = useState(false)
 
     const handleGenerateStoryTitle = () => {
-        if (!story?.content) return
+        if (!story) return
+        if (!story.content) {
+            setToast({
+                title: "Please provide a story to generate a title.",
+                type: "warning"
+            })
+            return
+        }
         if (!isLoading) {
             setIsLoading(true)
             generateStoryTitle(story.content)
                 .then(title => {
-                    if (title) editStory({ title, updatedAt: new Date().toISOString() })
+                    if (title) editStory({ title })
                     else {
                         setToast({
                             title: "Error",
@@ -46,25 +53,25 @@ function StoryTitle() {
     }
 
     return (
-        <div className="relative flex items-center border-surfaceHover p-2 border rounded-xl w-full">
+        <div className="relative flex rounded-xl ring-2 ring-surfaceHover focus-within:ring-primary w-full overflow-hidden">
             <input
-                className="bg-transparent placeholder:opacity-50 pl-2 w-full font-[600] text-base placeholder:text-light capitalize outline-none"
-                placeholder="Story title"
-                onChange={e => editStory({ title: e.target.value, updatedAt: new Date().toISOString() })}
+                className="bg-dark placeholder:opacity-50 py-2 pl-4 w-full font-[600] text-base placeholder:text-light capitalize outline-none"
+                placeholder="Title"
+                onChange={e => editStory({ title: e.target.value })}
                 value={story?.title}
             />
             <button
-                className="btn-circle btn-reverse"
+                className="m-2 btn-circle btn-primary"
                 onClick={handleGenerateStoryTitle}
             >
-                <Sparkle className="stroke-dark" />
+                <Sparkle />
                 {isLoading && <Spinner bgColor="light" spinnerColor="dark" />}
             </button>
         </div>
     )
 }
 
-function Story() {
+function Content() {
 
     const { story, editStory } = useEditorStore()
     const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -78,16 +85,14 @@ function Story() {
     }, [story])
 
     return (
-        <div className="border-2 border-surfaceHover p-4 rounded-xl overflow-hidden">
-            <textarea
-                ref={textareaRef}
-                className="bg-transparent w-full h-full text-lg outline-none resize-none"
-                onChange={e => editStory({ content: e.target.value, updatedAt: new Date().toISOString() })}
-                value={story?.content}
-                autoFocus
-            >
-            </textarea>
-        </div>
+        <textarea
+            ref={textareaRef}
+            className="bg-dark placeholder:opacity-50 p-4 rounded-xl ring-2 ring-surfaceHover focus-within:ring-primary placeholder:text-light overflow-hidden outline-none resize-none"
+            placeholder="Story"
+            onChange={e => editStory({ content: e.target.value })}
+            value={story?.content}
+        >
+        </textarea>
     )
 }
 
@@ -128,10 +133,17 @@ function Controls() {
             });
             return
         }
-        if (stories.find(s => s.id === story.id)) {
-            addStory(story)
+        if (!story.content) {
+            setToast({
+                title: "Please provide a story to save it.",
+                type: "warning"
+            })
+            return
+        }
+        if (!stories.filter(s => s.id === story.id)[0]) {
+            addStory({ ...story, updatedAt: new Date().toISOString() })
         } else {
-            editStory(story.id, story)
+            editStory({ ...story, updatedAt: new Date().toISOString() })
         }
         setToast({
             title: "Story has been saved successfully!",
@@ -167,25 +179,43 @@ function Controls() {
 }
 
 function PlaceHolder() {
+
+    const { setSection } = useSectionStore()
+
     return (
-        <div className="flex flex-col flex-1 justify-center items-center gap-2 opacity-50">
-            <svg className="stroke-2 stroke-light" width="100px" height="100px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
-                <polyline points="34.48 54.28 11.06 54.28 11.06 18.61 23.02 5.75 48.67 5.75 48.67 39.42" />
-                <polyline points="23.04 5.75 23.02 18.61 11.06 18.61" />
-                <line x1="16.21" y1="45.68" x2="28.22" y2="45.68" />
-                <line x1="16.21" y1="39.15" x2="31.22" y2="39.15" />
-                <line x1="16.21" y1="33.05" x2="43.22" y2="33.05" />
-                <line x1="16.21" y1="26.95" x2="43.22" y2="26.95" />
-                <circle cx="42.92" cy="48.24" r="10.01" strokeLinecap="round" />
-                <line x1="39.05" y1="44.36" x2="46.8" y2="52.11" />
-                <line x1="39.05" y1="52.11" x2="46.8" y2="44.36" />
+        <div className="flex flex-col flex-1 justify-center items-center gap-4">
+            <svg className="fill-light"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                width="100px"
+                height="100px"
+                viewBox="0 0 66.826 66.826"
+            >
+                <g>
+                    <path d="M65.66,12.409H33.755l-0.002-0.002L5.723,3.888C5.366,3.779,4.985,3.844,4.688,4.066c-0.296,0.219-0.472,0.57-0.472,0.936
+                    v7.407H1.168C0.523,12.409,0,12.935,0,13.577v41.286c0,0.644,0.523,1.168,1.168,1.168h24.216v4.624h-4.429v1.168v1.167h24.912
+                    v-1.167v-1.168H41.44v-4.624h24.218c0.644,0,1.168-0.524,1.168-1.168V13.577C66.828,12.931,66.302,12.409,65.66,12.409z
+                    M6.552,12.409V6.579l19.179,5.831l3.842,1.168l2.672,0.813v0.355v38.489L6.552,45.424V14.745v-1.168V12.409z M64.492,53.697
+                    h-29.91V14.745h4.588v4.333l2.274-1.438l2.274,1.438v-4.333h20.778L64.492,53.697L64.492,53.697z M28.288,21.886l-9.105-2.77
+                    v-1.538l9.105,2.774V21.886z M28.288,27.75l-9.105-2.771v-1.542l9.105,2.772V27.75z M28.288,33.661l-18.209-5.539v-1.534
+                    l18.209,5.536V33.661z M28.288,39.519l-18.209-5.535v-1.54l18.209,5.535V39.519z M28.288,45.436l-18.209-5.538v-1.538l18.209,5.534
+                    V45.436z M11.634,23.136l0.475-1.546l2.743,0.832l0.488,1.838l0.796,0.243l0.801,0.243l-2.555-9.089l-0.876-0.264l-0.875-0.264
+                    l-2.556,7.533l0.782,0.241L11.634,23.136z M13.49,17.243l0.957,3.627l-1.915-0.582L13.49,17.243z M62.19,48.697H38.326v-1.605
+                    H62.19V48.697z M62.026,23.767l-2.459-2.289l-5.401,5.797l2.459,2.287L62.026,23.767z M43.27,40.985l-1.006-0.942l11.339-12.166
+                    l1.006,0.93L43.27,40.985z M55.061,29.228l1.003,0.938l-11.341,12.17L43.719,41.4L55.061,29.228z M41.698,40.65l2.463,2.287
+                    l-1.756,1.889l-3.019,0.776l0.56-3.063L41.698,40.65z"/>
+                </g>
             </svg>
             <h1 className="font-[600] text-xl">
                 {"No story available."}
             </h1>
-            <p className="font-[600] text-center">
-                {"Go to the prompt section to create one."}
-            </p>
+            <button
+                className="btn btn-primary"
+                onClick={() => setSection(SECTION.GENERATE)}
+            >
+                <Sparkle />
+                <span>generate</span>
+            </button>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { useSectionStore, SECTION } from "@/stores/useSectionStore"
-import { Prompt } from "./prompt"
-import { Editor } from "./editor"
+import { Generate } from "./generate"
+import { Edit } from "./edit"
 import { Archive } from "./achrive"
 
 export function Section() {
@@ -11,23 +11,30 @@ export function Section() {
     switch (section) {
         case SECTION.GENERATE:
             return (
-                <AnimateDisplay key={SECTION.GENERATE}>
-                    <Prompt />
+                <AnimateDisplay
+                    key={SECTION.GENERATE}
+                >
+                    <Generate />
                 </AnimateDisplay>
             )
         case SECTION.EDIT:
             return (
-                <AnimateDisplay key={SECTION.EDIT}>
-                    <Editor />
+                <AnimateDisplay
+                    key={SECTION.EDIT}
+                >
+                    <Edit />
                 </AnimateDisplay>
             )
         case SECTION.ARCHIVE:
             return (
-                <AnimateDisplay key={SECTION.ARCHIVE}>
-                    <Archive/>
+                <AnimateDisplay
+                    key={SECTION.ARCHIVE}
+                >
+                    <Archive />
                 </AnimateDisplay>
             )
-        default: return null
+        default:
+            return null
     }
 
 }

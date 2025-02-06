@@ -9,6 +9,7 @@ export function App() {
         <Screen>
             <Container>
                 <Header />
+                <br/>
                 <Section />
                 <Toast/>
             </Container>

@@ -31,7 +31,7 @@ export function Header() {
     }, [])
 
     return (
-        <header className="relative z-[1000] flex md:flex-row flex-col justify-between md:items-center gap-4 w-full select-none">
+        <header className="top-0 z-[1000] sticky flex md:flex-row flex-col justify-between md:items-center gap-4 w-full select-none">
             {/* Logo */}
             <div className="flex items-between items-center gap-2">
                 <div className="flex items-center gap-2 w-full">
@@ -51,8 +51,8 @@ export function Header() {
             <motion.nav
                 key={String(isMenuOpen)}
                 ref={menuRef}
-                className={`flex md:flex-row flex-col absolute top-full mt-2 md:mt-0 justify-center md:static items-center gap-1 bg-surface p-1 rounded-md w-full md:w-fit ${!isMenuOpen ? "hidden md:flex" : ""}`}
-                animate={{ opacity: [0, 1], translateY: [-50, 0] }}
+                className={`flex md:flex-row flex-col absolute top-full shadow-md md:shadow-none mt-4 md:mt-0 justify-center md:static items-center gap-1 bg-surface p-1 rounded-md w-full md:w-fit ${!isMenuOpen ? "hidden md:flex" : ""}`}
+                animate={{ opacity: [0, 1], translateY: [50, 0] }}
                 transition={{ duration: 0.2 }}
             >
                 <button

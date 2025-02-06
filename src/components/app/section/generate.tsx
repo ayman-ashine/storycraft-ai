@@ -28,22 +28,46 @@ import { Select } from "./select"
 import { generateUniqueId } from "@/utils/generateUniqueId"
 import { useToastStore } from "@/stores/useToastStore"
 
-export function Prompt() {
+export function Generate() {
 
     return (
         <div className="flex flex-col flex-1 justify-center gap-4">
-            <ConceptInput />
-            <AdvancedOptions />
+            <Textarea />
+            <Control />
         </div>
     )
 
 }
 
-function ConceptInput() {
+function Textarea() {
+
+    const { concept, setConcept } = useGenerateStoryStore()
+    const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+    useEffect(() => {
+        if (!textareaRef.current) return
+        textareaRef.current.style.height = "30px"
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+    }, [concept])
+
+    return (
+        <textarea
+            ref={textareaRef}
+            className="bg-dark placeholder:opacity-50 p-4 border-none rounded-xl ring-2 ring-surfaceHover focus:ring-primary w-full h-[30px] placeholder:text-light overflow-hidden ease-in-out outline-none resize-none"
+            placeholder="A lonely robot finds a friend in a kind girl, but they must escape humans who fear robots..."
+            onChange={e => setConcept(e.target.value)}
+            value={concept}
+            maxLength={2000}
+            autoFocus
+        >
+        </textarea>
+    )
+}
+
+function Control() {
 
     const {
         concept,
-        setConcept,
         genre,
         narrativePerspective,
         toneAndStyle,
@@ -55,15 +79,10 @@ function ConceptInput() {
     const { setSection } = useSectionStore()
     const { setToast } = useToastStore()
     const [isLoading, setIsLoading] = useState(false)
-    const textareaRef = useRef<HTMLTextAreaElement>(null)
-
-    useEffect(() => {
-        if (!textareaRef.current) return
-        textareaRef.current.style.height = "30px"
-        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
-    }, [concept])
+    const [isAdvancedOptionOpen, setIsAdvancedOptionsOpen] = useState(false)
 
     const handleGenerateStory = () => {
+
         if (concept && !isLoading) {
             setIsLoading(true)
             generateStory({
@@ -97,34 +116,33 @@ function ConceptInput() {
     }
 
     return (
-        <div className="flex flex-col gap-2 border-2 border-surfaceHover p-4 rounded-2xl w-full">
-            {/* <p className="w-full text-sm">
-                {"Provide your story idea, main characters, setting (time, place, and atmosphere), conflict (central struggle), and theme (core message or idea)..."}
-            </p> */}
-            <textarea
-                ref={textareaRef}
-                className="bg-transparent placeholder:opacity-50 w-full h-[30px] placeholder:text-light overflow-hidden outline-none resize-none"
-                placeholder="A lonely robot finds a friend in a kind girl, but they must escape humans who fear robots..."
-                onChange={e => setConcept(e.target.value)}
-                value={concept}
-                maxLength={2000}
-            >
-            </textarea>
-            <button
-                className="btn btn-reverse self-end"
-                onClick={handleGenerateStory}
-                disabled={concept === ""}
-            >
-                <Sparkle />
-                <span>generate</span>
-                {isLoading && <Spinner bgColor="light" spinnerColor="dark" />}
-            </button>
+        <div className="flex flex-col gap-4">
+            <div className="flex justify-end items-center gap-4">
+                <button
+                    className="btn btn-surface self-center"
+                    onClick={() => setIsAdvancedOptionsOpen(state => !state)}
+                >
+                    <Settings />
+                    <span>advanced options</span>
+                    <ChevronDown className={isAdvancedOptionOpen ? "rotate-180" : ""} />
+                </button>
+                <button
+                    className="btn btn-primary self-end"
+                    onClick={handleGenerateStory}
+                    disabled={concept === ""}
+                >
+                    <Sparkle />
+                    <span>generate</span>
+                    {isLoading && <Spinner bgColor="light" spinnerColor="dark" />}
+                </button>
+            </div>
+            <AdvancedOptions isAdvancedOptionOpen={isAdvancedOptionOpen} />
         </div>
     )
 }
 
-function AdvancedOptions() {
-    const [open, setOpen] = useState(false)
+function AdvancedOptions({ isAdvancedOptionOpen }: { isAdvancedOptionOpen: boolean }) {
+
     const {
         genre,
         setGenre,
@@ -142,20 +160,11 @@ function AdvancedOptions() {
 
     return (
         <div className="flex flex-col gap-4">
-            <button
-                className="btn btn-surface self-center"
-                onClick={() => setOpen(state => !state)}
-            >
-                <Settings />
-                <span>{"advanced options"}</span>
-                <ChevronDown className={open ? "rotate-180" : ""} />
-            </button>
-            <hr className="border-surface" />
             <AnimatePresence initial={true}>
                 {
-                    open &&
+                    isAdvancedOptionOpen &&
                     <motion.div
-                        className="gap-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                        className="gap-2 border-surfaceHover grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pt-4 border-t"
                         initial={{ translateY: "25%", opacity: 0 }}
                         animate={{ translateY: "0%", opacity: 1 }}
                         exit={{ translateY: "25%", opacity: 0 }}

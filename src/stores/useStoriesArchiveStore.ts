@@ -4,8 +4,8 @@ import { Story } from "@/data/types";
 interface StoriesArchiveStore {
     stories: Story[];
     addStory: (story: Story) => void;
+    editStory: (updatedStory: Story) => void;
     removeStory: (id: string) => void;
-    editStory: (id: string, updatedStory: Partial<Story>) => void;
 }
 
 export const useStoriesArchiveStore = create<StoriesArchiveStore>((set) => {
@@ -23,18 +23,18 @@ export const useStoriesArchiveStore = create<StoriesArchiveStore>((set) => {
                     return { stories: newStories };
                 });
             },
-            removeStory: (id) => {
+            editStory: (updatedStory) => {
                 set((state) => {
-                    const newStories = state.stories.filter((story) => story.id !== id);
+                    const newStories = state.stories.map((story) =>
+                        story.id === updatedStory.id ? updatedStory : story
+                    );
                     localStorage.setItem("stories", JSON.stringify(newStories));
                     return { stories: newStories };
                 });
             },
-            editStory: (id, updatedStory) => {
+            removeStory: (id) => {
                 set((state) => {
-                    const newStories = state.stories.map((story) =>
-                        story.id === id ? { ...story, ...updatedStory } : story
-                    );
+                    const newStories = state.stories.filter((story) => story.id !== id);
                     localStorage.setItem("stories", JSON.stringify(newStories));
                     return { stories: newStories };
                 });
