@@ -9,15 +9,15 @@ export function Section() {
     const { section } = useSectionStore()
 
     switch (section) {
-        case SECTION.PROMPT:
+        case SECTION.GENERATE:
             return (
-                <AnimateDisplay key={SECTION.PROMPT}>
+                <AnimateDisplay key={SECTION.GENERATE}>
                     <Prompt />
                 </AnimateDisplay>
             )
-        case SECTION.EDITOR:
+        case SECTION.EDIT:
             return (
-                <AnimateDisplay key={SECTION.EDITOR}>
+                <AnimateDisplay key={SECTION.EDIT}>
                     <Editor />
                 </AnimateDisplay>
             )

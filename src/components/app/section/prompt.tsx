@@ -26,6 +26,7 @@ import {
 } from "@/data/options"
 import { Select } from "./select"
 import { generateUniqueId } from "@/utils/generateUniqueId"
+import { useToastStore } from "@/stores/useToastStore"
 
 export function Prompt() {
 
@@ -52,6 +53,7 @@ function ConceptInput() {
     } = useGenerateStoryStore()
     const { setStory } = useEditorStore()
     const { setSection } = useSectionStore()
+    const { setToast } = useToastStore()
     const [isLoading, setIsLoading] = useState(false)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
 
@@ -81,7 +83,13 @@ function ConceptInput() {
                         createdAt: new Date().toISOString(),
                         updatedAt: new Date().toISOString()
                     })
-                    setSection(SECTION.EDITOR)
+                    setSection(SECTION.EDIT)
+                } else {
+                    setToast({
+                        title: "Error",
+                        description: "Oops! Something went wrong while generating the story.",
+                        type: "danger"
+                    })
                 }
                 setIsLoading(false)
             })
@@ -89,7 +97,7 @@ function ConceptInput() {
     }
 
     return (
-        <div className="flex flex-col gap-2 border-surfaceHover bg-surface p-4 border rounded-2xl w-full">
+        <div className="flex flex-col gap-2 border-2 border-surfaceHover p-4 rounded-2xl w-full">
             {/* <p className="w-full text-sm">
                 {"Provide your story idea, main characters, setting (time, place, and atmosphere), conflict (central struggle), and theme (core message or idea)..."}
             </p> */}

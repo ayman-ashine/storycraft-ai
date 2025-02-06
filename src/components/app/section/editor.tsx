@@ -1,10 +1,11 @@
 import { useEditorStore } from "@/stores/useEditorStore"
 import { useEffect, useRef, useState } from "react"
-import { Copy, Save, Sparkle } from "lucide-react"
+import { Copy, FileX2, Save, Sparkle } from "lucide-react"
 import { generateStoryTitle } from "@/api/ai"
 import { Spinner } from "@/components/ui"
 import { useToastStore } from "@/stores/useToastStore"
 import { useStoriesArchiveStore } from "@/stores/useStoriesArchiveStore"
+import { useSectionStore } from "@/stores/useSectionStore"
 
 export function Editor() {
 
@@ -22,6 +23,7 @@ export function Editor() {
 function StoryTitle() {
 
     const { story, editStory } = useEditorStore()
+    const { setToast } = useToastStore()
     const [isLoading, setIsLoading] = useState(false)
 
     const handleGenerateStoryTitle = () => {
@@ -31,15 +33,22 @@ function StoryTitle() {
             generateStoryTitle(story.content)
                 .then(title => {
                     if (title) editStory({ title, updatedAt: new Date().toISOString() })
+                    else {
+                        setToast({
+                            title: "Error",
+                            description: "Oops! Something went wrong while generating the story.",
+                            type: "danger"
+                        })
+                    }
                     setIsLoading(false)
                 })
         }
     }
 
     return (
-        <div className="relative flex justify-stretch items-center bg-surface p-2 rounded-xl w-full">
+        <div className="relative flex items-center border-surfaceHover p-2 border rounded-xl w-full">
             <input
-                className="bg-transparent placeholder:opacity-50 pl-2 w-full font-[600] text-xl placeholder:text-light capitalize outline-none"
+                className="bg-transparent placeholder:opacity-50 pl-2 w-full font-[600] text-base placeholder:text-light capitalize outline-none"
                 placeholder="Story title"
                 onChange={e => editStory({ title: e.target.value, updatedAt: new Date().toISOString() })}
                 value={story?.title}
@@ -69,7 +78,7 @@ function Story() {
     }, [story])
 
     return (
-        <div className="border-surfaceHover bg-surface p-4 border rounded-xl overflow-hidden">
+        <div className="border-2 border-surfaceHover p-4 rounded-xl overflow-hidden">
             <textarea
                 ref={textareaRef}
                 className="bg-transparent w-full h-full text-lg outline-none resize-none"
@@ -85,8 +94,14 @@ function Story() {
 function Controls() {
 
     const { setToast } = useToastStore()
-    const { story } = useEditorStore()
+    const { story, setStory } = useEditorStore()
+    const { goBack } = useSectionStore()
     const { stories, addStory, editStory } = useStoriesArchiveStore()
+
+    const handleDiscareStory = () => {
+        setStory(null)
+        goBack()
+    }
 
     const handleCopyStory = () => {
         if (!story) return
@@ -106,15 +121,14 @@ function Controls() {
 
     const handleSaveStory = () => {
         if (!story) return
-        if(!story.title) {
+        if (!story.title) {
             setToast({
                 title: "Please provide a title for the story to save it.",
                 type: "warning"
             });
             return
         }
-        const thisStory = stories.filter(s => s.id === story.id)[0]
-        if (!thisStory) {
+        if (stories.find(s => s.id === story.id)) {
             addStory(story)
         } else {
             editStory(story.id, story)
@@ -126,7 +140,14 @@ function Controls() {
     }
 
     return (
-        <div className="flex justify-end items-center gap-2 w-full">
+        <div className="flex justify-end items-center gap-2">
+            <button
+                className="btn btn-surface"
+                onClick={handleDiscareStory}
+            >
+                <FileX2 />
+                <span>discare</span>
+            </button>
             <button
                 className="btn btn-surface"
                 onClick={handleCopyStory}
@@ -135,7 +156,7 @@ function Controls() {
                 <span>copy</span>
             </button>
             <button
-                className="btn btn-surface"
+                className="btn btn-primary"
                 onClick={handleSaveStory}
             >
                 <Save className="stroke-dark" size={20} />

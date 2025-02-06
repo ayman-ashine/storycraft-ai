@@ -1,4 +1,4 @@
-import { PenLine, Trash2, Clock, Copy } from "lucide-react"
+import { PenLine, Trash2, Clock, Copy, RotateCw } from "lucide-react"
 import { formatDistanceToNow } from "date-fns"
 import { useStoriesArchiveStore } from "@/stores/useStoriesArchiveStore"
 import { useToastStore } from "@/stores/useToastStore"
@@ -12,9 +12,6 @@ export function Archive() {
 
     return stories.length ? (
         <div className="flex flex-col flex-1 justify-center gap-4">
-            <h1 className="font-[600] text-xl md:text-2xl lg:text-4xl capitalize">
-                {"You Stories"}
-            </h1>
             {
                 stories.map(story => {
                     return (
@@ -55,7 +52,7 @@ function StoryCard({
             createdAt,
             updatedAt
         })
-        setSection(SECTION.EDITOR)
+        setSection(SECTION.EDIT)
     }
 
     const handleCopyStory = () => {
@@ -76,21 +73,21 @@ function StoryCard({
     const handleRemoveStory = () => {
         removeStory(id)
         setToast({
-            title: `Story was removed.`,
+            title: "Story was removed.",
             type: "success"
         })
     }
 
     return (
-        <div className="group flex flex-col gap-4 border-2 border-surfaceHover hover:shadow-md p-4 hover:border-light rounded-xl duration-200 overflow-hidden ease-in-out">
+        <div className="group flex flex-col items-stretch gap-2 border-2 border-surfaceHover hover:border-primary hover:shadow-md p-4 rounded-xl duration-200 overflow-hidden ease-in-out item">
             {/* Title and actions */}
-            <div className="flex justify-between items-center gap-2 max-w-full">
-                <div className="w-full font-[600] text-nowrap text-xl truncate capitalize whitespace-nowrap">
+            <div className="flex md:flex-row flex-col-reverse justify-between items-end md:items-center gap-2 overflow-hidden">
+                <div className="w-full font-[600] capitalize">
                     {title}
                 </div>
-                <div className="flex flex-grow items-center gap-2 opacity-0 group-hover:opacity-100 w-fit duration-200 ease-in-out">
+                <div className="group-hover:h-fit flex flex-grow items-center gap-2 opacity-0 group-hover:opacity-100 w-fit h-0 md:h-fit duration-200 overflow-hidden ease-in-out">
                     <button
-                        className="btn-circle btn-surface"
+                        className="btn-circle btn-primary"
                         onClick={handleEditStory}
                     >
                         <PenLine />
@@ -113,21 +110,21 @@ function StoryCard({
                 </div>
             </div>
             {/* Story preview content */}
-            <div className="line-clamp-3 text-sm overflow-hidden">
+            <div className="line-clamp-2 overflow-hidden">
                 {content}
             </div>
             {/* Date information */}
-            <div className="flex gap-4">
-                <div className="flex items-center gap-1 self-end">
+            <div className="flex flex-wrap gap-2 w-full">
+                <div className="flex items-center gap-1 opacity-50 self-end">
                     <Clock size={15} />
-                    <span className="opacity-50 font-[600] text-sm">
-                        {`Created  at ${formatDistanceToNow(createdAt, { addSuffix: true })}`}
+                    <span className="font-[600] text-xs">
+                        {`Created ${formatDistanceToNow(createdAt).replace('about ', '')}`}
                     </span>
                 </div>
-                <div className="flex items-center gap-1 self-end">
-                    <Clock size={15} />
-                    <span className="opacity-50 font-[600] text-sm">
-                        {`Updated at ${formatDistanceToNow(updatedAt, { addSuffix: true })}`}
+                <div className="flex items-center gap-1 opacity-50 self-end">
+                    <RotateCw size={15} />
+                    <span className="font-[600] text-xs">
+                        {`Updated ${formatDistanceToNow(updatedAt).replace('about ', '')}`}
                     </span>
                 </div>
             </div>

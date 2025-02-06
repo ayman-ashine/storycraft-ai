@@ -3,7 +3,7 @@ import { Story } from "@/data/types"
 
 interface EditorStore {
     story: Story | null
-    setStory: (story: Story) => void
+    setStory: (story: Story | null) => void
     editStory: (updatedStory: Partial<Story>) => void
 }
 

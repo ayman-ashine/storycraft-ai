@@ -29,7 +29,7 @@ export function Toast() {
 
     useEffect(() => {
         if (!toast) return
-        setTimeout(() => setToast(null), 3000)
+        setTimeout(() => setToast(null), 5000)
     }, [toast, setToast])
 
     return (
@@ -37,16 +37,16 @@ export function Toast() {
             {
                 toast &&
                 <motion.div
-                    className={`z-[100] right-0 bottom-0 fixed flex items-center gap-2 m-4 p-4 rounded-xl w-fit ${className[toast.type || "surface"]}`}
+                    className={`z-[100] right-0 bottom-0 fixed flex max-w-full items-center gap-2 m-4 p-2 rounded-xl w-fit ${className[toast.type || "surface"]}`}
                     initial={{ translateX: "100%", opacity: 0 }}
                     animate={{ translateX: "0%", opacity: 1 }}
                     exit={{ translateX: "100%", opacity: 0 }}
                 >
                     {icons[toast.type || "surface"]}
-                    <div className="flex flex-col gap-2">
-                        <span className="font-[600] text-light capitalize">
+                    <div className="">
+                        <h1 className="font-[600] text-light text-sm capitalize">
                             {toast.title}
-                        </span>
+                        </h1>
                         {
                             toast.description &&
                             <p className="text-sm">
