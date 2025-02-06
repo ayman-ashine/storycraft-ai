@@ -1,13 +1,34 @@
 import clsx from "clsx";
 import { Newspaper, LibraryBig, Archive, Menu, Sparkle } from "lucide-react";
 import { useSectionStore, SECTION } from "@/stores/useSectionStore";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from 'motion/react';
 
 export function Header() {
 
     const { section, setSection } = useSectionStore()
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const menuRef = useRef<HTMLElement>(null)
+    const menuButtonRef = useRef<HTMLButtonElement>(null)
+
+    useEffect(() => {
+        const handleClick = (event: MouseEvent) => {
+            if (
+                menuRef.current &&
+                menuButtonRef.current &&
+                !menuRef.current.contains(event.target as HTMLElement) &&
+                !menuButtonRef.current.contains(event.target as HTMLElement)
+            ) {
+                setIsMenuOpen(false)
+            }
+        }
+
+        document.addEventListener("click", handleClick)
+
+        return () => {
+            document.removeEventListener("click", handleClick)
+        }
+    }, [])
 
     return (
         <header className="relative z-[1000] flex md:flex-row flex-col justify-between md:items-center gap-4 w-full select-none">
@@ -20,6 +41,7 @@ export function Header() {
                     </span>
                 </div>
                 <button
+                    ref={menuButtonRef}
                     className="md:hidden btn-circle btn-reverse"
                     onClick={() => setIsMenuOpen(state => !state)}
                 >
@@ -27,10 +49,11 @@ export function Header() {
                 </button>
             </div>
             <motion.nav
+                key={String(isMenuOpen)}
+                ref={menuRef}
                 className={`flex md:flex-row flex-col absolute top-full mt-2 md:mt-0 justify-center md:static items-center gap-1 bg-surface p-1 rounded-md w-full md:w-fit ${!isMenuOpen ? "hidden md:flex" : ""}`}
                 animate={{ opacity: [0, 1], translateY: [-50, 0] }}
                 transition={{ duration: 0.2 }}
-                key={String(isMenuOpen)}
             >
                 <button
                     className={clsx(
