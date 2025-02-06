@@ -8,13 +8,7 @@ interface EditorStore {
 }
 
 export const useEditorStore = create<EditorStore>((set) => ({
-    story: {
-        id: "",
-        title: "",
-        content: "",
-        createdAt: "",
-        updatedAt: "",
-    },
+    story: null,
     setStory: (story) => set(({ story })),
     editStory: (updatedStory) => set((state) => ({
         story: state.story
