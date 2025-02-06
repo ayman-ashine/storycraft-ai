@@ -53,19 +53,19 @@ function Title() {
     }
 
     return (
-        <div className="relative flex rounded-xl ring-2 ring-surfaceHover focus-within:ring-primary w-full overflow-hidden">
+        <div className="relative flex items-center w-full">
             <input
-                className="bg-dark placeholder:opacity-50 py-2 pl-4 w-full font-[600] text-base placeholder:text-light capitalize outline-none"
+                className="input"
                 placeholder="Title"
                 onChange={e => editStory({ title: e.target.value })}
                 value={story?.title}
             />
             <button
-                className="m-2 btn-circle btn-primary"
+                className="right-0 absolute mr-1 btn-circle btn-primary"
                 onClick={handleGenerateStoryTitle}
             >
                 <Sparkle />
-                {isLoading && <Spinner bgColor="light" spinnerColor="dark" />}
+                {isLoading && <Spinner type="primary" />}
             </button>
         </div>
     )
@@ -87,7 +87,7 @@ function Content() {
     return (
         <textarea
             ref={textareaRef}
-            className="bg-dark placeholder:opacity-50 p-4 rounded-xl ring-2 ring-surfaceHover focus-within:ring-primary placeholder:text-light overflow-hidden outline-none resize-none"
+            className="textarea"
             placeholder="Story"
             onChange={e => editStory({ content: e.target.value })}
             value={story?.content}
@@ -168,7 +168,7 @@ function Controls() {
                 <span>copy</span>
             </button>
             <button
-                className="btn btn-primary"
+                className="btn btn-reverse"
                 onClick={handleSaveStory}
             >
                 <Save className="stroke-dark" size={20} />
@@ -209,13 +209,20 @@ function PlaceHolder() {
             <h1 className="font-[600] text-xl">
                 {"No story available."}
             </h1>
-            <button
-                className="btn btn-primary"
-                onClick={() => setSection(SECTION.GENERATE)}
-            >
-                <Sparkle />
-                <span>generate</span>
-            </button>
+            <div className="flex items-center gap-2">
+                <button
+                    className="btn btn-primary"
+                    onClick={() => setSection(SECTION.GENERATE)}
+                >
+                    <Sparkle />
+                    <span>generate</span>
+                </button>
+                <span className="opacity-70 hover:opacity-100 text-sm underline capitalize duration-300 cursor-pointer"
+                    onClick={() => setSection(SECTION.ARCHIVE)}
+                >
+                    check archive
+                </span>
+            </div>
         </div>
     )
 }

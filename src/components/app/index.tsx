@@ -7,12 +7,11 @@ import { Section } from "./section"
 export function App() {
     return (
         <Screen>
+            <Header />
             <Container>
-                <Header />
-                <br/>
                 <Section />
-                <Toast/>
             </Container>
+            <Toast />
         </Screen>
     )
 }

@@ -29,7 +29,7 @@ export function Toast() {
 
     useEffect(() => {
         if (!toast) return
-        setTimeout(() => setToast(null), 5000)
+        setTimeout(() => setToast(null), 3000)
     }, [toast, setToast])
 
     return (

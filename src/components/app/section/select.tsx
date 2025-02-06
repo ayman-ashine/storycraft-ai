@@ -55,8 +55,8 @@ export function Select({
         <button
             ref={selectRef}
             className={clsx(
-                "relative flex justify-between items-center border-surfaceHover px-4 py-2 border rounded-full w-full transition-colors duration-200 ease-in-out",
-                option ? "bg-primary" : (open ? "bg-surfaceHover" : "bg-surface hover:bg-surfaceHover"),
+                "relative flex justify-between items-center px-4 py-2 rounded-full w-full transition-colors duration-200 ease-in-out",
+                option ? "bg-primary" : (open ? "bg-surface-2" : "bg-surface hover:bg-surface-2"),
             )}
             onClick={() => setOpen(state => !state)}
         >
@@ -74,7 +74,7 @@ export function Select({
                     open &&
                     <motion.div
                         className={clsx(
-                            "left-0 z-50 absolute bg-surface shadow-md rounded-md w-full overflow-hidden outline outline-1 outline-surfaceHover",
+                            "left-0 z-50 absolute bg-surface shadow-md rounded-md w-full overflow-hidden outline outline-1 outline-surface-2",
                             flip ? "bottom-full mb-2" : "top-full mt-2"
                         )}
                         initial={{ maxHeight: 0, opacity: 0 }}
@@ -92,6 +92,7 @@ export function Select({
                             >
                                 none
                             </div>
+                            <hr className="border-surface-2"/>
                             {
                                 options.map(option => {
                                     return (

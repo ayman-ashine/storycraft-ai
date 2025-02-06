@@ -12,7 +12,7 @@ export default {
         light: "var(--light)",
         dark: "var(--dark)",
         surface: "var(--surface)",
-        surfaceHover: "var(--surface-hover)",
+        "surface-2": "var(--surface-2)",
         primary: "var(--primary)",
         danger: "var(--danger)",
         warning: "var(--warning)",

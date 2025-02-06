@@ -53,7 +53,7 @@ function Textarea() {
     return (
         <textarea
             ref={textareaRef}
-            className="bg-dark placeholder:opacity-50 p-4 border-none rounded-xl ring-2 ring-surfaceHover focus:ring-primary w-full h-[30px] placeholder:text-light overflow-hidden ease-in-out outline-none resize-none"
+            className="textarea"
             placeholder="A lonely robot finds a friend in a kind girl, but they must escape humans who fear robots..."
             onChange={e => setConcept(e.target.value)}
             value={concept}
@@ -117,9 +117,9 @@ function Control() {
 
     return (
         <div className="flex flex-col gap-4">
-            <div className="flex justify-end items-center gap-4">
+            <div className="flex justify-end items-center gap-2">
                 <button
-                    className="btn btn-surface self-center"
+                    className="btn btn-surface"
                     onClick={() => setIsAdvancedOptionsOpen(state => !state)}
                 >
                     <Settings />
@@ -127,13 +127,13 @@ function Control() {
                     <ChevronDown className={isAdvancedOptionOpen ? "rotate-180" : ""} />
                 </button>
                 <button
-                    className="btn btn-primary self-end"
+                    className="btn btn-primary"
                     onClick={handleGenerateStory}
                     disabled={concept === ""}
                 >
                     <Sparkle />
                     <span>generate</span>
-                    {isLoading && <Spinner bgColor="light" spinnerColor="dark" />}
+                    {isLoading && <Spinner type="primary" />}
                 </button>
             </div>
             <AdvancedOptions isAdvancedOptionOpen={isAdvancedOptionOpen} />
@@ -164,7 +164,7 @@ function AdvancedOptions({ isAdvancedOptionOpen }: { isAdvancedOptionOpen: boole
                 {
                     isAdvancedOptionOpen &&
                     <motion.div
-                        className="gap-2 border-surfaceHover grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pt-4 border-t"
+                        className="gap-2 border-surface-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pt-4 border-t"
                         initial={{ translateY: "25%", opacity: 0 }}
                         animate={{ translateY: "0%", opacity: 1 }}
                         exit={{ translateY: "25%", opacity: 0 }}

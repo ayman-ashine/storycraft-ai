@@ -10,7 +10,7 @@ const roboto = Figtree({
 
 const orbitron = Orbitron({
   variable: "--font-orbitron",
-  weight: ["900"],
+  weight: ["800"],
   subsets: ["latin"],
 })
 

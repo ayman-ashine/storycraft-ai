@@ -14,15 +14,15 @@ export function Archive() {
 
     return stories.length ? (
         <div className="flex flex-col flex-1 gap-4">
-            <div className="relative bg-dark rounded-xl ring-2 ring-surfaceHover focus-within:ring-primary w-full overflow-hidden">
+            <div className="relative w-full">
                 <input
-                    className="bg-transparent px-4 py-2 w-full outline-none peer"
+                    className="input peer"
                     placeholder="Search"
                     onChange={e => setSearchText(e.target.value)}
                     value={searchText}
                 />
                 <Search
-                    className="top-1/2 right-0 absolute -translate-x-4 -translate-y-1/2 peer-focus:stroke-primary duration-200 pointer-events-none stroke-surfaceHover"
+                    className="top-1/2 right-0 absolute -translate-x-4 -translate-y-1/2 peer-focus:stroke-primary duration-200 pointer-events-none stroke-surface-2"
                     size={20}
                 />
             </div>
@@ -80,7 +80,7 @@ function StoryCard({story}: {story: Story}) {
     }
 
     return (
-        <div className="group flex flex-col items-stretch bg-dark shadow-md p-4 rounded-xl ring-2 ring-surfaceHover hover:ring-primary duration-200 overflow-hidden ease-in-out item">
+        <div className="group flex flex-col items-stretch bg-dark shadow-md p-4 rounded-xl ring-2 ring-surface-2 hover:ring-primary duration-200 overflow-hidden ease-in-out item">
             {/* title */}
             <h1 className="font-[600] capitalize">
                 {story.title}
