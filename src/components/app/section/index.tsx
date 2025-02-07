@@ -43,11 +43,11 @@ function AnimateDisplay({ children }: { children: React.ReactNode }) {
     return (
         <AnimatePresence initial={true}>
             <motion.div
-                className="flex flex-1"
+                className="flex flex-col flex-1 justify-center gap-4"
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.5, opacity: 0 }}
-                transition={{ duration: 0.3, type: "spring" }}
+                transition={{ duration: 0.5, type: "spring" }}
             >
                 {children}
             </motion.div>

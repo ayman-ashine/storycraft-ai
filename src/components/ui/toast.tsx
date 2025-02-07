@@ -55,7 +55,7 @@ export function Toast() {
                         }
                     </div>
                     <button
-                        className="btn-circle btn-reverse"
+                        className="p-1 btn-circle-reverse"
                         onClick={handleCloseToast}
                     >
                         <X />

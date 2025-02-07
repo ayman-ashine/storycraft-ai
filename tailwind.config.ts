@@ -17,8 +17,6 @@ export default {
         danger: "var(--danger)",
         warning: "var(--warning)",
         success: "var(--success)",
-        shadow: "var(--shadow)",
-        sheen: "var(--sheen)",
       },
     },
   },

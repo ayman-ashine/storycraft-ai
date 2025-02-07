@@ -54,10 +54,9 @@ export function Select({
     return (
         <button
             ref={selectRef}
-            className={clsx(
-                "relative flex justify-between items-center px-4 py-2 rounded-full w-full transition-colors duration-200 ease-in-out",
-                option ? "bg-primary" : (open ? "bg-surface-2" : "bg-surface hover:bg-surface-2"),
-            )}
+            className={`w-full relative px-4 py-2 flex items-center justify-center gap-2 rounded-full transition-colors duration-200 ease-in-out ${
+                option ? "bg-primary" : open ? "bg-surface-2" : "bg-surface hover:bg-surface-2"
+            }`}
             onClick={() => setOpen(state => !state)}
         >
             {/* Name & Icons */}
@@ -67,24 +66,24 @@ export function Select({
                     {option || name}
                 </span>
             </div>
-            <ChevronDown size={18} className={clsx("transition-transform duration-200", open && "rotate-180")} />
+            <ChevronDown className={clsx("transition-transform duration-200", open && "rotate-180")} />
             {/* Menu */}
-            <AnimatePresence initial={false}>
+            <AnimatePresence initial={true}>
                 {
                     open &&
                     <motion.div
                         className={clsx(
-                            "left-0 z-50 z-50 absolute bg-surface-2 shadow-md rounded-md w-full overflow-hidden outline outline-1 outline-surface-2",
+                            "left-0 z-50 absolute bg-surface-2 shadow-md rounded-md w-full overflow-hidden outline outline-1 outline-surface-2",
                             flip ? "bottom-full mb-2" : "top-full mt-2"
                         )}
                         initial={{ maxHeight: 0, opacity: 0 }}
-                        animate={{ maxHeight: 300, opacity: 1 }}
+                        animate={{ maxHeight: 250, opacity: 1 }}
                         exit={{ maxHeight: 0 }}
                         transition={{ duration: 0.2, ease: "easeInOut" }}
                     >
                         <div
                             ref={menuRef}
-                            className="flex flex-col max-h-[300px] overflow-x-hidden overflow-y-auto"
+                            className="flex flex-col max-h-[250px] overflow-x-hidden overflow-y-auto"
                         >
                             <div
                                 onClick={() => setOption("")}
@@ -92,7 +91,7 @@ export function Select({
                             >
                                 none
                             </div>
-                            <hr className="border-surface-2"/>
+                            <hr className="border-surface-2" />
                             {
                                 options.map(option => {
                                     return (
