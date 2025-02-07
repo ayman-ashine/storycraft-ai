@@ -61,7 +61,7 @@ function Title() {
         <div className="relative flex items-center w-full">
             <input
                 className="input"
-                placeholder="Title"
+                placeholder="Title..."
                 onChange={e => editStory({ title: e.target.value })}
                 value={story?.title}
             />
@@ -93,7 +93,7 @@ function Content() {
         <textarea
             ref={textareaRef}
             className="textarea"
-            placeholder="Story"
+            placeholder="Story..."
             onChange={e => editStory({ content: e.target.value })}
             // onSelect={() => console.log(window.getSelection().toString())}
             value={story?.content}

@@ -20,7 +20,7 @@ export function Archive() {
                         <div className="relative w-full">
                             <input
                                 className="input peer"
-                                placeholder="Search"
+                                placeholder="Search..."
                                 onChange={e => setSearchText(e.target.value)}
                                 value={searchText}
                             />
@@ -109,27 +109,24 @@ function StoryCard({ story }: { story: Story }) {
                     </span>
                 </div>
             </div>
-            <div className="group-hover:pt-4 flex justify-center gap-2 opacity-0 group-hover:opacity-100 max-h-0 group-hover:max-h-[100px] duration-200">
+            <div className="group-hover:pt-4 flex justify-end gap-2 opacity-0 group-hover:opacity-100 max-h-0 group-hover:max-h-[100px] duration-200">
                 <button
-                    className="btn btn-surface"
+                    className="btn-circle-surface"
                     onClick={handleRemoveStory}
                 >
                     <Trash2 />
-                    <span>remove</span>
                 </button>
                 <button
-                    className="btn btn-surface"
+                    className="btn-circle-surface"
                     onClick={handleCopyStory}
                 >
                     <Copy />
-                    <span>copy</span>
                 </button>
                 <button
-                    className="btn btn-primary"
+                    className="btn-circle-primary"
                     onClick={handleEditStory}
                 >
                     <PenLine />
-                    <span>edit</span>
                 </button>
             </div>
         </div>
