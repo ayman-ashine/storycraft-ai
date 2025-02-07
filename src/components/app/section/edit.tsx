@@ -1,6 +1,6 @@
 import { useEditorStore } from "@/stores/useEditorStore"
 import { useEffect, useRef, useState } from "react"
-import { Archive, Copy, FileX2, Save, Sparkle } from "lucide-react"
+import { Copy, FileX2, Save, Sparkle } from "lucide-react"
 import { generateStoryTitle } from "@/api/ai"
 import { Spinner } from "@/components/ui"
 import { useToastStore } from "@/stores/useToastStore"

@@ -91,7 +91,7 @@ export function Select({
                             >
                                 none
                             </div>
-                            <hr className="border-surface-2" />
+                            <hr className="border-surface" />
                             {
                                 options.map(option => {
                                     return (
