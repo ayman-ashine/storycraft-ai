@@ -20,13 +20,12 @@
     :root {
       --light: theme(colors.zinc.100);
       --dark: black;
-      --surface: theme(colors.zinc.900);
+      --surface: rgb(255, 255, 255, 0.05);
       --surface-2: theme(colors.zinc.800);
       --primary: theme(colors.violet.600);
       --success: theme(colors.green.600);
       --warning: theme(colors.yellow.600);
       --danger: theme(colors.red.600);
-      --sheen: #7c3aed50;
     }
   }
 
@@ -70,10 +69,10 @@
     [&_svg]:size-4 [&_svg]:stroke-light active:scale-90 disabled:active:scale-100;
   }
   .btn-primary {
-    @apply bg-primary hover:opacity-70;
+    @apply border-2 bg-primary border-transparent disabled:hover:border-transparent hover:border-light;
   }
   .btn-surface {
-    @apply bg-surface hover:bg-surface-2 disabled:hover:bg-surface;
+    @apply border-2 disabled:hover:border-surface hover:border-surface-2 bg-surface border-transparent;
   }
   .btn-reverse {
     @apply bg-light hover:opacity-70 [&_span]:text-dark [&_svg]:stroke-dark;
