@@ -29,10 +29,8 @@
   }
 
   * {
-    font-size: 1rem;
-    font-weight: 400;
+    @apply selection:bg-light font-[400] text-base text-light selection:text-dark;
     font-family: var(--font-roboto);
-    color: var(--light);
   }
 
   body {

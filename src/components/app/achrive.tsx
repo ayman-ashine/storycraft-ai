@@ -6,6 +6,7 @@ import { Story } from "@/data/types"
 import { useEditorStore } from "@/stores/useEditorStore"
 import { SECTION, useSectionStore } from "@/stores/useSectionStore"
 import { useState } from "react"
+import { getDirection } from "@/utils/getDirection"
 
 export function Archive() {
 
@@ -17,7 +18,7 @@ export function Archive() {
             {
                 stories.length > 0 ?
                     <>
-                        <div className="relative w-full">
+                        <div className="relative w-full" dir={getDirection(searchText)}>
                             <input
                                 className="input peer"
                                 placeholder="Search..."
@@ -25,7 +26,7 @@ export function Archive() {
                                 value={searchText}
                             />
                             <Search
-                                className="top-1/2 right-0 absolute -translate-x-4 -translate-y-1/2 peer-focus:stroke-primary duration-200 pointer-events-none stroke-surface-2"
+                                className="top-1/2 ltr:right-0 rtl:left-0 absolute -translate-y-1/2 ltr:-translate-x-4 rtl:translate-x-4 peer-focus:stroke-primary duration-200 pointer-events-none stroke-surface-2"
                                 size={20}
                             />
                         </div>
@@ -87,11 +88,17 @@ function StoryCard({ story }: { story: Story }) {
     return (
         <div className="group flex flex-col items-stretch bg-dark shadow-md p-4 rounded-xl ring-2 ring-surface-2 hover:ring-primary duration-200 overflow-hidden ease-in-out">
             {/* title */}
-            <h1 className="font-[900] text-lg capitalize">
+            <h1
+                className="font-[900] text-lg capitalize"
+                dir={getDirection(story?.title)}
+            >
                 {story.title}
             </h1>
             {/* content preview */}
-            <div className="line-clamp-3 pt-2 w-full">
+            <div
+                className="line-clamp-3 pt-2 w-full"
+                dir={getDirection(story?.content)}
+            >
                 {story.content}
             </div>
             {/* time information */}
@@ -111,22 +118,25 @@ function StoryCard({ story }: { story: Story }) {
             </div>
             <div className="group-hover:pt-4 flex justify-end gap-2 opacity-0 group-hover:opacity-100 max-h-0 group-hover:max-h-[100px] duration-200">
                 <button
-                    className="btn-circle-surface"
+                    className="btn-surface"
                     onClick={handleRemoveStory}
                 >
                     <Trash2 />
+                    <span className="sm:inline hidden">delete</span>
                 </button>
                 <button
-                    className="btn-circle-surface"
+                    className="btn-surface"
                     onClick={handleCopyStory}
                 >
                     <Copy />
+                    <span className="sm:inline hidden">copy</span>
                 </button>
                 <button
-                    className="btn-circle-primary"
+                    className="btn-primary"
                     onClick={handleEditStory}
                 >
                     <PenLine />
+                    <span className="sm:inline hidden">edit</span>
                 </button>
             </div>
         </div>

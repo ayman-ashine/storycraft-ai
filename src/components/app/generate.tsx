@@ -27,6 +27,7 @@ import {
 import { Select } from "./select"
 import { generateUniqueId } from "@/utils/generateUniqueId"
 import { useToastStore } from "@/stores/useToastStore"
+import { getDirection } from "@/utils/getDirection"
 
 export function Generate() {
 
@@ -58,6 +59,7 @@ function Textarea() {
             onChange={e => setConcept(e.target.value)}
             value={concept}
             maxLength={2000}
+            dir={getDirection(concept)}
             autoFocus
         >
         </textarea>

@@ -1,11 +1,12 @@
 import { useEditorStore } from "@/stores/useEditorStore"
 import { useEffect, useRef, useState } from "react"
-import { Copy, FileX2, Save, Sparkle } from "lucide-react"
+import { Copy, Save, Sparkle, X } from "lucide-react"
 import { generateStoryTitle } from "@/api/ai"
 import { Spinner } from "@/components/ui"
 import { useToastStore } from "@/stores/useToastStore"
 import { useStoriesArchiveStore } from "@/stores/useStoriesArchiveStore"
 import { SECTION, useSectionStore } from "@/stores/useSectionStore"
+import { getDirection } from "@/utils/getDirection"
 
 export function Edit() {
 
@@ -58,7 +59,10 @@ function Title() {
     }
 
     return (
-        <div className="relative flex items-center w-full">
+        <div
+            className="relative flex items-center w-full"
+            dir={getDirection(story?.title)}
+        >
             <input
                 className="input"
                 placeholder="Title..."
@@ -66,7 +70,7 @@ function Title() {
                 value={story?.title}
             />
             <button
-                className="group right-0 absolute mr-1 btn-circle btn-primary"
+                className="group ltr:right-0 rtl:left-0 absolute ltr:mr-1 rtl:ml-1 btn-circle btn-primary"
                 onClick={handleGenerateStoryTitle}
             >
                 <Sparkle className="group-hover:rotate-180 transition-transform group-disabled:transition-none duration-500" />
@@ -97,6 +101,7 @@ function Content() {
             onChange={e => editStory({ content: e.target.value })}
             // onSelect={() => console.log(window.getSelection().toString())}
             value={story?.content}
+            dir={getDirection(story?.content)}
         >
         </textarea>
     )
@@ -158,25 +163,25 @@ function Controls() {
     return (
         <div className="flex justify-end items-center gap-2">
             <button
-                className="btn btn-surface"
+                className="btn-surface"
                 onClick={handleCloseStory}
             >
-                <FileX2 />
-                <span>close</span>
+                <X />
+                <span className="sm:inline hidden">close</span>
             </button>
             <button
-                className="btn btn-surface"
+                className="btn-surface"
                 onClick={handleCopyStory}
             >
                 <Copy />
-                <span>copy</span>
+                <span className="sm:inline hidden">copy</span>
             </button>
             <button
-                className="btn btn-reverse"
+                className="btn-reverse"
                 onClick={handleSaveStory}
             >
                 <Save />
-                <span>Save</span>
+                <span className="sm:inline hidden">save</span>
             </button>
         </div>
     )
