@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { Figtree, Orbitron } from "next/font/google";
+import { Orbitron, Tajawal } from "next/font/google";
 import "./globals.css";
 
-const roboto = Figtree({
-  variable: "--font-roboto",
-  weight: ["400", "600", "900"],
-  subsets: ["latin"],
-});
-
+const arabicFont = Tajawal({ subsets: ["latin", "latin" ], weight: ["400", "700", "900"] });
 const orbitron = Orbitron({
   variable: "--font-orbitron",
-  weight: ["800"],
+  weight: ["900"],
   subsets: ["latin"],
 })
 
@@ -30,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable} ${orbitron.variable} antialiased`}
+        className={`${arabicFont.className} ${orbitron.variable} antialiased`}
       >
         {children}
       </body>
