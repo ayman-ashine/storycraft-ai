@@ -20,13 +20,13 @@ export function Archive() {
                     <>
                         <div className="relative w-full" dir={getDirection(searchText)}>
                             <input
-                                className="input peer"
+                                className="peer input"
                                 placeholder="Search..."
                                 onChange={e => setSearchText(e.target.value)}
                                 value={searchText}
                             />
                             <Search
-                                className="top-1/2 ltr:right-0 rtl:left-0 absolute -translate-y-1/2 ltr:-translate-x-4 rtl:translate-x-4 peer-focus:stroke-primary duration-200 pointer-events-none stroke-surface-2"
+                                className="top-1/2 ltr:right-0 rtl:left-0 absolute stroke-surface-2 peer-focus:stroke-primary -translate-y-1/2 ltr:-translate-x-4 rtl:translate-x-4 duration-200 pointer-events-none"
                                 size={20}
                             />
                         </div>
@@ -86,7 +86,7 @@ function StoryCard({ story }: { story: Story }) {
     }
 
     return (
-        <div className="group flex flex-col items-stretch bg-dark shadow-md p-4 rounded-xl ring-2 ring-surface-2 hover:ring-primary duration-200 overflow-hidden ease-in-out">
+        <div className="group flex flex-col items-stretch bg-dark bg-surface shadow-md p-4 rounded-xl ring-1 ring-surface-2 hover:ring-primary overflow-hidden duration-200 ease-in-out">
             {/* title */}
             <h1
                 className="font-[900] text-lg capitalize"
@@ -96,7 +96,7 @@ function StoryCard({ story }: { story: Story }) {
             </h1>
             {/* content preview */}
             <div
-                className="line-clamp-3 pt-2 w-full"
+                className="pt-2 w-full line-clamp-3"
                 dir={getDirection(story?.content)}
             >
                 {story.content}
@@ -118,25 +118,25 @@ function StoryCard({ story }: { story: Story }) {
             </div>
             <div className="group-hover:pt-4 flex justify-end gap-2 opacity-0 group-hover:opacity-100 max-h-0 group-hover:max-h-[100px] duration-200">
                 <button
-                    className="btn-surface"
+                    className="btn-reverse"
                     onClick={handleRemoveStory}
                 >
                     <Trash2 />
-                    <span className="sm:inline hidden">delete</span>
+                    <span className="hidden sm:inline">delete</span>
                 </button>
                 <button
-                    className="btn-surface"
+                    className="btn-reverse"
                     onClick={handleCopyStory}
                 >
                     <Copy />
-                    <span className="sm:inline hidden">copy</span>
+                    <span className="hidden sm:inline">copy</span>
                 </button>
                 <button
-                    className="btn-primary"
+                    className="btn-reverse"
                     onClick={handleEditStory}
                 >
                     <PenLine />
-                    <span className="sm:inline hidden">edit</span>
+                    <span className="hidden sm:inline">edit</span>
                 </button>
             </div>
         </div>

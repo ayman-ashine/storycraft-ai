@@ -5,10 +5,10 @@
 @layer base {
 
   :root {
-    --light: #000000;
-    --dark: #FFFFFF;
-    --surface: #EFEFEF;
-    --surface-2: #E0E0E0;
+    --light: theme(colors.zinc.950);
+    --dark: theme(colors.zinc.50);
+    --surface: theme(colors.zinc.200);
+    --surface-2: theme(colors.zinc.300);
     --primary: theme(colors.indigo.300);
     --success: theme(colors.green.300);
     --warning: theme(colors.yellow.300);
@@ -17,19 +17,19 @@
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --light: #FFFFFF;
-      --dark: #000000;
-      --surface: #0F0F0F;
-      --surface-2: #1F1F1F;
+      --light: theme(colors.zinc.50);
+      --dark: theme(colors.zinc.950);
+      --surface: theme(colors.zinc.900);
+      --surface-2: theme(colors.zinc.800);
       --primary: theme(colors.indigo.600);
       --success: theme(colors.green.600);
       --warning: theme(colors.yellow.600);
-      --danger: theme(colors.red.800);
+      --danger: theme(colors.red.600);
     }
   }
 
   * {
-    @apply selection:bg-light font-[400] text-base text-light selection:text-dark;
+    @apply selection:bg-light font-[400] text-light selection:text-dark text-base;
   }
 
   body {
@@ -38,7 +38,7 @@
 
   /* Scrollbar width */
   ::-webkit-scrollbar {
-    @apply bg-transparent w-2 h-2;
+    @apply bg-surface w-2 h-2;
   }
 
   /* Scrollbar Handle */
@@ -53,54 +53,54 @@
     @apply
     relative px-3 py-2 flex items-center justify-center gap-2 w-fit h-fit overflow-hidden
     disabled:opacity-60 disabled:pointer-events-none cursor-pointer
-    transition-all duration-200 ease-in-out rounded-full select-none border-transparent border-2
+    transition-all duration-200 ease-in-out rounded-full select-none border-transparent border
     [&_span]:text-light [&_span]:font-[600] [&_span]:text-nowrap [&_span]:text-sm [&_span]:capitalize
-    [&_svg]:size-4 [&_svg]:stroke-light active:scale-90;
+    [&_svg]:size-4 [&_svg]:stroke-light active:scale-90 shadow-sm;
   }
   .btn-primary {
     @apply bg-primary hover:border-light btn;
   }
   .btn-surface {
-    @apply hover:border-surface-2 bg-surface btn;
+    @apply bg-surface hover:border-surface-2 btn;
   }
   .btn-reverse {
-    @apply bg-light hover:opacity-60 [&_span]:text-dark btn [&_svg]:stroke-dark;
+    @apply bg-light hover:opacity-60 [&_svg]:stroke-dark [&_span]:text-dark btn;
   }
   .btn-circle {
     @apply
     relative p-2 flex items-center justify-center w-fit h-fit overflow-hidden aspect-square
     disabled:opacity-60 disabled:pointer-events-none cursor-pointer
-    transition-all duration-200 ease-in-out rounded-full select-none border-transparent border-2
-    [&_svg]:size-4 [&_svg]:stroke-light active:scale-90;
+    transition-all duration-200 ease-in-out rounded-full select-none border-transparent border
+    [&_svg]:size-4 [&_svg]:stroke-light active:scale-90 shadow-sm;
   }
   .btn-circle-primary {
     @apply bg-primary hover:border-light btn-circle;
   }
   .btn-circle-surface {
-    @apply hover:border-surface-2 bg-surface btn-circle;
+    @apply bg-surface hover:border-surface-2 btn-circle;
   }
   .btn-circle-reverse {
-    @apply bg-light hover:opacity-60 [&_span]:text-dark btn-circle [&_svg]:stroke-dark;
+    @apply bg-light hover:opacity-60 [&_svg]:stroke-dark [&_span]:text-dark btn-circle;
   }
   .textarea {
     @apply
-    bg-dark caret-primary p-4 ring-2 ring-surface-2 rounded-xl w-full
+    bg-surface caret-primary p-4 ring-1 ring-surface-2 rounded-xl w-full
     outline-none resize-none border-none overflow-hidden text-base font-[400]
-    placeholder:opacity-50 placeholder:text-light selection:bg-primary
-    focus:ring-primary duration-200 ease-in-out transition-shadow shadow-md
+    placeholder:opacity-50 placeholder:text-light selection:bg-primary selection:text-light
+    focus:ring-primary focus:ring-2 duration-200 ease-in-out transition-shadow shadow-md
   }
   .input {
     @apply
-    bg-dark caret-primary px-3 py-2 ring-2 ring-surface-2 rounded-full w-full
+    bg-surface caret-primary px-4 py-2 ring-1 ring-surface-2 rounded-xl w-full
     outline-none border-none overflow-hidden text-base font-[400]
-    placeholder:opacity-50 placeholder:text-light selection:bg-primary
-    focus:ring-primary duration-200 ease-in-out transition-shadow shadow-md
+    placeholder:opacity-50 placeholder:text-light selection:bg-primary selection:text-light
+    focus:ring-primary focus:ring-2 duration-200 ease-in-out transition-shadow shadow-md
   }
 }
 
 @layer utilities {
   .see {
-    @apply border-danger border;
+    @apply border border-danger;
   }
   .orbitron {
     font-family: var(--font-orbitron);

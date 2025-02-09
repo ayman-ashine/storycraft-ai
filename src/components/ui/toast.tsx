@@ -37,10 +37,10 @@ export function Toast() {
             {
                 toast &&
                 <motion.div
-                    className={`z-[100] right-0 bottom-0 fixed flex max-w-full items-center gap-2 m-4 p-2 rounded-xl w-fit ${className[toast.type || "surface"]}`}
-                    initial={{ translateX: "100%", opacity: 0 }}
+                    className={`z-[100] left-0 bottom-0 fixed flex max-w-full items-center gap-2 m-4 p-2 rounded-xl w-fit ${className[toast.type || "surface"]}`}
+                    initial={{ translateX: "-100%", opacity: 0 }}
                     animate={{ translateX: "0%", opacity: 1 }}
-                    exit={{ translateX: "100%", opacity: 0 }}
+                    exit={{ translateX: "-100%", opacity: 0 }}
                 >
                     {icons[toast.type || "surface"]}
                     <div className="">

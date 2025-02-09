@@ -70,8 +70,9 @@ function Title() {
                 value={story?.title}
             />
             <button
-                className="group ltr:right-0 rtl:left-0 absolute ltr:mr-1 rtl:ml-1 btn-circle btn-primary"
+                className="group ltr:right-0 rtl:left-0 absolute ltr:mr-1 rtl:ml-1 btn-circle-primary"
                 onClick={handleGenerateStoryTitle}
+                title="Generate title"
             >
                 <Sparkle className="group-hover:rotate-180 transition-transform group-disabled:transition-none duration-500" />
                 {isLoading && <Spinner type="primary" />}
@@ -80,32 +81,72 @@ function Title() {
     )
 }
 
-function Content() {
+export default function Content() {
+    const { story, editStory } = useEditorStore();
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [selectedText, setSelectedText] = useState({ start: 0, end: 0 });
+    const [isFocus, setIsFocus] = useState(false)
 
-    const { story, editStory } = useEditorStore()
-    const textareaRef = useRef<HTMLTextAreaElement>(null)
+    function getRandomSelection(textLength: number): { start: number, end: number } {
+        if (!textLength) return { start: 0, end: 0 };
+        const maxLength = Math.min(30, textLength);
+        const start = Math.floor(Math.random() * (textLength - maxLength + 1));
+        return { start, end: start + maxLength };
+    }
+
+    function isCharSelected(index: number) {
+        return index >= selectedText.start && index < selectedText.end
+    }
 
     useEffect(() => {
-
         if (!textareaRef.current) return;
         textareaRef.current.style.height = "30px";
         textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }, [story]);
 
-    }, [story])
+    useEffect(() => {
+        if (!story || isFocus) {
+            setSelectedText(getRandomSelection(0))
+            return
+        }
+        const interval = setInterval(() => {
+            setSelectedText(getRandomSelection(story.content.length));
+        }, 500);
+        return () => clearInterval(interval);
+    }, [story, isFocus]);
 
     return (
-        <textarea
-            ref={textareaRef}
-            className="textarea"
-            placeholder="Story..."
-            onChange={e => editStory({ content: e.target.value })}
-            // onSelect={() => console.log(window.getSelection().toString())}
-            value={story?.content}
+        <div
+            className="relative w-full"
             dir={getDirection(story?.content)}
         >
-        </textarea>
-    )
+            <textarea
+                ref={textareaRef}
+                className="textarea"
+                placeholder="Story..."
+                onChange={(e) => editStory({ content: e.target.value })}
+                value={story?.content}
+                onFocus={() => setIsFocus(true)}
+                onBlur={() => setIsFocus(false)}
+            />
+            {
+                !isFocus &&
+                <div className="top-0 left-0 absolute inset-0 w-full h-full break-words whitespace-pre-wrap pointer-events-none textarea">
+                    {story?.content?.split("").map((char, index) => (
+                        <span
+                            key={index}
+                            className="transition-colors duration-300"
+                            style={{ backgroundColor: isCharSelected(index) ? "var(--primary)" : "transparent", }}
+                        >
+                            {char}
+                        </span>
+                    ))}
+                </div>
+            }
+        </div>
+    );
 }
+
 
 function Controls() {
 
@@ -167,21 +208,21 @@ function Controls() {
                 onClick={handleCloseStory}
             >
                 <X />
-                <span className="sm:inline hidden">close</span>
+                <span className="hidden sm:inline">close</span>
             </button>
             <button
                 className="btn-surface"
                 onClick={handleCopyStory}
             >
                 <Copy />
-                <span className="sm:inline hidden">copy</span>
+                <span className="hidden sm:inline">copy</span>
             </button>
             <button
                 className="btn-reverse"
                 onClick={handleSaveStory}
             >
                 <Save />
-                <span className="sm:inline hidden">save</span>
+                <span className="hidden sm:inline">save</span>
             </button>
         </div>
     )

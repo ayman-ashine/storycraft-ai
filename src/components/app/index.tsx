@@ -1,6 +1,6 @@
 "use client"
 
-import { Screen, Container, Toast } from "@/components/ui"
+import { Screen, Container, Toast, Scroll } from "@/components/ui"
 import { useSectionStore, SECTION } from "@/stores/useSectionStore"
 import { Header } from "./header"
 import { Generate } from "./generate"
@@ -16,13 +16,15 @@ export function App() {
     return (
         <Screen>
             <Header />
-            <Container>
-                <AnimateDisplay key={section}>
-                    {section === SECTION.GENERATE && <Generate />}
-                    {section === SECTION.EDIT && <Edit />}
-                    {section === SECTION.ARCHIVE && <Archive />}
-                </AnimateDisplay>
-            </Container>
+            <Scroll>
+                <Container>
+                    <AnimateDisplay key={section}>
+                        {section === SECTION.GENERATE && <Generate />}
+                        {section === SECTION.EDIT && <Edit />}
+                        {section === SECTION.ARCHIVE && <Archive />}
+                    </AnimateDisplay>
+                </Container>
+            </Scroll>
             <Toast />
         </Screen>
     )
