@@ -1,12 +1,13 @@
 "use client"
 
-import { Screen, Container, Toast, Scroll } from "@/components/ui"
+import { Screen, Container, Scroll } from "@/components/ui"
 import { useSectionStore, SECTION } from "@/stores/useSectionStore"
 import { Header } from "./header"
 import { Generate } from "./generate"
 import { Edit } from "./edit"
-import { Archive } from "./achrive"
+import { Archive } from "./archive"
 import { AnimateDisplay } from "./animateDisplay"
+import { Toast } from "./toast"
 
 
 export function App() {

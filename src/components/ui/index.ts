@@ -3,5 +3,4 @@
 export { Container } from "./container"
 export { Screen } from "./screen"
 export { Spinner } from "./spinner"
-export { Toast } from "./toast"
 export { Scroll } from "./scroll"
