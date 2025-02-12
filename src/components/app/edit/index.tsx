@@ -10,7 +10,7 @@ export function Edit() {
     const { story } = useEditorStore()
 
     return story ? (
-        <div className="flex flex-col flex-1 justify-center gap-4">
+        <div className="flex flex-col flex-1 justify-center gap-4 pb-[200px]">
             <Title />
             <Content />
             <Controls />

@@ -1,13 +1,34 @@
 import { useEditorStore } from "@/stores/useEditorStore";
 import { getDirection } from "@/utils/getDirection";
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from 'motion/react';
+
+const options = [
+    {
+        name: "Fix Grammar",
+        action: () => { }
+    },
+    {
+        name: "Expand Text",
+        action: () => { }
+    },
+    {
+        name: "Summarize",
+        action: () => { }
+    },
+    {
+        name: "Rewrite",
+        action: () => { }
+    }
+];
+
 
 export function Content() {
     const { story, editStory } = useEditorStore();
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [selectedText, setSelectedText] = useState({ start: 0, end: 0 });
     const [isFocus, setIsFocus] = useState(false)
-    const [editMenu, setEditMenu] = useState<{display: boolean, text: string, x: number, y: number}>({display: false, text: "", x: 0, y:0})
+    const [editMenu, setEditMenu] = useState<{ display: boolean, text: string }>({ display: false, text: "" })
 
     function getRandomSelection(textLength: number): { start: number, end: number } {
         if (!textLength) return { start: 0, end: 0 };
@@ -21,9 +42,12 @@ export function Content() {
         return index >= selectedText.start && index < selectedText.end
     }
 
-    function handleDisplayEditTool(e: any) {
-        console.log(e)
-        setEditMenu({display: true, text: ""})
+    function handleDisplayEditTool() {
+        const text = window.getSelection()?.toString() || "";
+        setEditMenu({
+            display: true,
+            text: text,
+        })
     }
 
     useEffect(() => {
@@ -72,19 +96,37 @@ export function Content() {
                     ))}
                 </div>
             }
-            {
-                editMenu.display &&
-                <div
-                className="fixed flex flex-col bg-surface border border-surface-2 rounded-md w-full max-w-xl"
-                style={{left: editMenu.x, top: editMenu.y}}
-                >
-                    <textarea className="textarea"></textarea>
-                    <div className="hover:bg-primary p-4 text-sm capitalize">correct</div>
-                    <div className="hover:bg-primary p-4 text-sm capitalize">expand</div>
-                    <div className="hover:bg-primary p-4 text-sm capitalize">summerize</div>
-                    <div className="hover:bg-primary p-4 text-sm capitalize">translate</div>
-                </div>
-            }
+            <AnimatePresence>
+                {
+                    (editMenu.display && editMenu.text) &&
+                    <motion.div
+                        className="bottom-0 left-0 z-50 fixed flex flex-col gap-4 bg-surface p-4 border-surface-2 border-t w-screen h-fit"
+                        initial={{ translateY: "100%" }}
+                        animate={{ translateY: "0%" }}
+                        exit={{ translateY: "100%" }}
+                    >
+                        <textarea
+                            className="textarea"
+                            placeholder="Paragraph..."
+                            defaultValue={editMenu.text}
+                        ></textarea>
+                        <div className="flex flex-wrap gap-2">
+                            {
+                                options.map(option => {
+                                    return (
+                                        <div
+                                            key={option.name}
+                                            className="hover:bg-primary px-2 py-1 border border-surface-2 rounded-full text-sm capitalize transition-colors duration-200 cursor-pointer"
+                                        >
+                                            {option.name}
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </motion.div>
+                }
+            </AnimatePresence>
         </div>
     );
 }
