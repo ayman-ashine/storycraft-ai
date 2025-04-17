@@ -18,9 +18,9 @@
   @media (prefers-color-scheme: dark) {
     :root {
       --light: theme(colors.zinc.50);
-      --dark: theme(colors.zinc.950);
-      --surface: theme(colors.zinc.900);
-      --surface-2: theme(colors.zinc.800);
+      --dark: theme(colors.zinc.900);
+      --surface: theme(colors.zinc.800);
+      --surface-2: theme(colors.zinc.700);
       --primary: theme(colors.indigo.600);
       --success: theme(colors.green.600);
       --warning: theme(colors.yellow.600);

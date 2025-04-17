@@ -3,8 +3,8 @@ import { API_AI_THREADS } from "@/api/ai"
 import { API_ERRORS } from "@/data/errors"
 import { parseGenerateStoryTitlePrompt, parseGenerateStoryPrompt } from "@/utils/parsePrompt"
 
-const genAI = new GoogleGenerativeAI(process.env.API_KEY!)
-const model = genAI.getGenerativeModel({ model: "gemini-pro" })
+const genAI = new GoogleGenerativeAI(process.env.API_KEY!);
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
 export async function POST(request: Request) {
     try {
@@ -82,7 +82,8 @@ async function generateStory({
 
         return Response.json(text, { status: 200 })
 
-    } catch {
+    } catch(error) {
+        console.log(error)
         return Response.json(
             {
                 message: API_ERRORS.SERVER_ERROR.message,
