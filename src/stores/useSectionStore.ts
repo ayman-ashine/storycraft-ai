@@ -3,7 +3,7 @@ import { create } from "zustand"
 export enum SECTION {
     GENERATE,
     EDIT,
-    ARCHIVE
+    ARCHIVE,
 }
 
 interface SectionStore {

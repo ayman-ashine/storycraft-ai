@@ -96,6 +96,24 @@
     placeholder:opacity-50 placeholder:text-light selection:bg-primary selection:text-light
     focus:ring-primary focus:ring-2 duration-200 ease-in-out transition-shadow shadow-md
   }
+
+  /* How it works page */
+  .title {
+    @apply font-bold text-2xl capitalize;
+  }
+
+  .text {
+    @apply text-base
+  }
+
+  .note {
+    @apply bg-warning p-4 rounded-xl w-fit text-lg;
+  }
+  
+  .list li::before {
+    @apply inline-block bg-light mr-2 rounded-full w-1 h-1 align-middle content-[''];
+  }
+  
 }
 
 @layer utilities {

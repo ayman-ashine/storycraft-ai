@@ -1,10 +1,12 @@
-import { Newspaper, LibraryBig, Archive, Sparkle } from "lucide-react";
+import { Newspaper, Archive, Sparkle, Info } from "lucide-react";
 import { useSectionStore, SECTION } from "@/stores/useSectionStore";
+import Image from "next/image";
+import Link from "next/link";
 
 export function Header() {
 
     return (
-        <header className="border-surface-2 bg-surface p-4 border-b w-full">
+        <header className="bg-surface p-4 border-surface-2 border-b w-full">
             <div className="flex sm:flex-row flex-col justify-between items-center gap-2 mx-auto w-full max-w-4xl">
                 <Logo />
                 <Nav />
@@ -15,8 +17,8 @@ export function Header() {
 
 function Logo() {
     return (
-        <div className="sm:flex items-center gap-2 hidden">
-            <LibraryBig size={20} />
+        <div className="hidden sm:flex items-center gap-4">
+            <Image src={"/icons/favicon.svg"} width={30} height={30} alt="StoryCraft AI Logo"/>
             <h1 className="text-xl orbitron">StoryCraft AI</h1>
         </div>
     )
@@ -49,6 +51,12 @@ function Nav() {
                 <Archive />
                 <span>archive</span>
             </button>
+            <Link
+                className="btn-circle"
+                href={"/how-it-works"}
+            >
+                <Info />
+            </Link>
         </div>
     )
 }
