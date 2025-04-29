@@ -65,7 +65,6 @@ export const metadata: Metadata = {
     { rel: "apple-touch-icon", url: "/icons/apple-touch-icon.png" },
   ],
   manifest: "/site.webmanifest",
-  themeColor: "#a5b4fc",
 };
 
 export default function RootLayout({

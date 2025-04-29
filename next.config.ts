@@ -1,5 +1,7 @@
 // next.config.mjs
 
+// TypeScript workaround for next-pwa
+// Create a `declarations.d.ts` file with: declare module 'next-pwa';
 import withPWA from "next-pwa";
 
 /** @type {import('next').NextConfig} */
