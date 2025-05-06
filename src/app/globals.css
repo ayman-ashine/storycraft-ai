@@ -107,7 +107,7 @@
   }
 
   .note {
-    @apply bg-warning p-4 rounded-xl w-fit text-lg;
+    @apply bg-surface p-4 rounded-xl w-fit text-lg;
   }
   
   .list li::before {
